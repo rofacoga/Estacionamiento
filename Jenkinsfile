@@ -32,6 +32,7 @@ pipeline {
           url: 'https://github.com/rofacoga/Estacionamiento'
         ]]
       ])
+    sh 'gradle clean'
    }
   }
   stage('Unit Tests') {
