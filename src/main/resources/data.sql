@@ -1,0 +1,6 @@
+
+
+insert into VEHICLE ( ID, PLATE, TYPEVEHICLE )
+values( NEXTVAL('VEHICLE_SEQ'),'HSD11A', 1 );
+insert into VEHICLE ( ID, PLATE, TYPEVEHICLE )
+values( NEXTVAL('VEHICLE_SEQ'),'HSD12A', 1 );
