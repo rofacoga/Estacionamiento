@@ -38,6 +38,7 @@ pipeline {
    steps {
     echo "------------>Unit Tests<------------"
     sh 'gradle --b ./build.gradle test'
+    junit '**/build/test-results/test/*.xml' 
    }
   }
   stage('Integration Tests') {
