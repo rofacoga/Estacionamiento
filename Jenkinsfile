@@ -15,7 +15,7 @@ pipeline {
   jdk 'JDK8_Centos' //Preinstalada en la Configuracion del Master
   gradle 'Gradle4.5_Centos' //Preinstalada en la Configuracion del Master
  }
- //Aqui­ comienzan los items del Pipeline
+ //Aquiï¿½ comienzan los items del Pipeline
  stages {
   stage('Checkout') {
    steps {
@@ -50,6 +50,7 @@ pipeline {
     echo '------------>Analisis de codigo estatico<------------'
     withSonarQubeEnv('Sonar') {
      sh "${tool name: 'SonarScanner',type: 'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar - scanner"
+     type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner -Dproject.settings=sonar-project.properties"
    }
   }
  }
