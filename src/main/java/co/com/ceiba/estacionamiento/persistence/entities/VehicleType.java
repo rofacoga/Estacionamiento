@@ -7,26 +7,84 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import co.com.ceiba.estacionamiento.utils.StateEnum;
+import javax.persistence.SequenceGenerator;
 
 /**
  * 
  * @author roger.cordoba
  */
-@Entity(name = "VEHICLE_TYPE")
+@Entity(name = "VEHICLE_TYPES")
 public class VehicleType {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY, generator="VEHICLETYPE_SEQ")
-	@Column(name = "ID", nullable = false)
-	private Long id;
 
 	@Column(name = "TYPE", nullable = false)
 	private String type;
 
-	@Column(name = "REGISTRATION_STATUS", nullable = false)
-	private StateEnum registrationStatus;
+
+	@Id
+	@Column(name = "ID", nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "VEHICLETYPE_SEQ")
+	@SequenceGenerator(name="VEHICLETYPE_SEQ", sequenceName="VEHICLETYPE_SEQ", initialValue=1, allocationSize=1)
+	private Long id;
+
+	@Column(name = "REGISTRATION_ACTIVE", nullable = false)
+	private Boolean registrationActive;
 
 	@Column(name = "REGISTRATION_DATE", nullable = false)
-	private Calendar registrationDate = Calendar.getInstance();
+	private Calendar registrationDate;
+
+	/**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the registrationActive
+	 */
+	public Boolean getRegistrationActive() {
+		return registrationActive;
+	}
+
+	/**
+	 * @param registrationActive the registrationActive to set
+	 */
+	public void setRegistrationActive(Boolean registrationActive) {
+		this.registrationActive = registrationActive;
+	}
+
+	/**
+	 * @return the registrationDate
+	 */
+	public Calendar getRegistrationDate() {
+		return registrationDate;
+	}
+
+	/**
+	 * @param registrationDate the registrationDate to set
+	 */
+	public void setRegistrationDate(Calendar registrationDate) {
+		this.registrationDate = registrationDate;
+	}
 }

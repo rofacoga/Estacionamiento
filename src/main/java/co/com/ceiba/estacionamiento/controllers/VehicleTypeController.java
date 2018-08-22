@@ -2,30 +2,44 @@ package co.com.ceiba.estacionamiento.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
+import co.com.ceiba.estacionamiento.persistence.entities.VehicleType;
 import co.com.ceiba.estacionamiento.services.VehicleTypeServiceInterface;
-import co.com.ceiba.estacionamiento.services.impl.VehicleService;
-import co.com.ceiba.estacionamiento.services.impl.VehicleTypeService;
 
 /**
  * 
  * @author roger.cordoba
  */
 @RestController
-@RequestMapping("api")
+@RequestMapping("vehicleType")
 public class VehicleTypeController {
-    @Autowired
-    private VehicleTypeServiceInterface typeService;
+	@Autowired
+	private VehicleTypeServiceInterface typeService;
 
-    @RequestMapping("/allTypes")
-    @ResponseBody
-    public ResponseEntity<List> getPeople() {
-        return new ResponseEntity( typeService.getAllTypes(), HttpStatus.OK );
-    }
+	@RequestMapping("/allTypes")
+	public ResponseEntity<List<VehicleType>> getPeople() {
+		return new ResponseEntity(this.typeService.getAllTypes(), HttpStatus.OK);
+	}
+
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.POST, value = "/createType")
+	public ResponseEntity<VehicleType> createType(@RequestBody VehicleType type) {
+		try {
+			return new ResponseEntity(this.typeService.saveType(type), HttpStatus.OK);
+
+		} catch (Exception e) {
+			throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+		}
+	}
 }

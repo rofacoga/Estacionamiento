@@ -1,5 +1,7 @@
 package co.com.ceiba.estacionamiento.services;
 
+import java.util.List;
+
 import co.com.ceiba.estacionamiento.persistence.entities.Vehicle;
 
 /**
@@ -16,6 +18,28 @@ public interface VehicleServiceInterface {
 	/**
 	 * 
 	 * @param vehicle
+	 * @return
 	 */
-	public Vehicle createVehicle( Vehicle vehicle );
+	public Vehicle saveVehicle( Vehicle vehicle );
+
+	/**
+	 * 
+	 * @param vehicle
+	 * @return
+	 */
+	public Vehicle deleteVehicle( Vehicle vehicle );
+
+	/**
+	 * 
+	 * @param plate
+	 * @return
+	 */
+	public Vehicle searchByPlate( String plate );
+
+	/**
+	 * 
+	 * @param plate
+	 * @return
+	 */
+	public List<Vehicle> searchAllByPlate( String plate );
 }

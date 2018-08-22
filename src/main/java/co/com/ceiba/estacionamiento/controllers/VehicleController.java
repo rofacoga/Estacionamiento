@@ -5,8 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.ceiba.estacionamiento.persistence.entities.Vehicle;
@@ -17,25 +18,23 @@ import co.com.ceiba.estacionamiento.services.impl.VehicleService;
  * @author roger.cordoba
  */
 @RestController
-@RequestMapping("api")
+@RequestMapping("vehicle")
 public class VehicleController {
-    @Autowired
-    private VehicleService vehicleService;
+	@Autowired
+	private VehicleService vehicleService;
 
-    @RequestMapping("/allVehicles")
-    @ResponseBody
-    public ResponseEntity<List> getVehicles() {
-        return new ResponseEntity( this.vehicleService.getAllVehicles(), HttpStatus.OK);
-    }
+	@RequestMapping("/allVehicles")
+	public ResponseEntity<List<Vehicle>> getVehicles() {
+		return new ResponseEntity(this.vehicleService.getAllVehicles(), HttpStatus.OK);
+	}
 
-    @RequestMapping("/createVehicle")
-    @ResponseBody
-    public void createVehicle( Vehicle vehicle ) {
-    	try {
-    		this.vehicleService.createVehicle( vehicle );
-			return;
+	@RequestMapping(method = RequestMethod.POST, value = "/createVehicle")
+	public ResponseEntity<Vehicle> createVehicle(@RequestBody Vehicle vehicle) {
+		try {
+			return new ResponseEntity(this.vehicleService.saveVehicle(vehicle), HttpStatus.OK);
+
 		} catch (Exception e) {
-			// TODO: handle exception
+			return new ResponseEntity(e.getMessage(), HttpStatus.METHOD_FAILURE);
 		}
-    }
+	}
 }

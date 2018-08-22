@@ -1,6 +1,7 @@
 package co.com.ceiba.estacionamiento.services.impl;
 
 import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
 import co.com.ceiba.estacionamiento.persistence.entities.Vehicle;
 import co.com.ceiba.estacionamiento.persistence.repositories.VehicleRepository;
 import co.com.ceiba.estacionamiento.services.VehicleServiceInterface;
-import co.com.ceiba.estacionamiento.utils.StateEnum;
 
 /**
  * 
@@ -22,14 +22,35 @@ public class VehicleService implements VehicleServiceInterface {
 
 	@Override
 	public Iterable<Vehicle> getAllVehicles() {
-		return this.repository.findAll();
+		return this.repository.findByRegistrationActive(true);
 	}
 
 	@Override
-	public Vehicle createVehicle( Vehicle vehicle ) {
-		vehicle.setRegistrationStatus( StateEnum.ACTIVE );
-		vehicle.setRegistrationDate( Calendar.getInstance() );
-		
-		return this.repository.save( vehicle );
+	public Vehicle saveVehicle(Vehicle vehicle) {
+		if (vehicle == null) return new Vehicle();
+
+		if (vehicle.getId() == null) {
+			vehicle.setRegistrationActive(true);
+			vehicle.setRegistrationDate(Calendar.getInstance());
+		}
+
+		return this.repository.save(vehicle);
+	}
+
+	@Override
+	public Vehicle deleteVehicle(Vehicle vehicle) {
+		vehicle.setRegistrationActive(false);
+
+		return this.repository.save(vehicle);
+	}
+
+	@Override
+	public Vehicle searchByPlate(String plate) {
+		return this.repository.findByRegistrationActiveAndPlate(true, plate);
+	}
+
+	@Override
+	public List<Vehicle> searchAllByPlate(String plate) {
+		return this.repository.findByRegistrationActiveAndPlateStartingWith(true, plate);
 	}
 }

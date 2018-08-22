@@ -12,4 +12,18 @@ public interface VehicleTypeServiceInterface {
 	 * @return
 	 */
 	public Iterable<VehicleType> getAllTypes();
+
+	/**
+	 * 
+	 * @param type
+	 * @return
+	 */
+	public VehicleType saveType( VehicleType type );
+
+	/**
+	 * 
+	 * @param type
+	 * @return
+	 */
+	public VehicleType deleteType( VehicleType type );
 }

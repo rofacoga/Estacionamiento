@@ -4,17 +4,17 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import co.com.ceiba.estacionamiento.persistence.entities.VehicleType;
+import co.com.ceiba.estacionamiento.persistence.entities.Keeper;
 
 /**
  * 
  * @author roger.cordoba
  */
-public interface VehicleTypeRepository extends CrudRepository<VehicleType, Long> {
+public interface KeeperRepository extends CrudRepository<Keeper, Long> {
 	/**
 	 * 
 	 * @param regState
 	 * @return
 	 */
-	public List<VehicleType> findByRegistrationActive(Boolean isActive);
+	public List<Keeper> findByRegistrationActive(Boolean isActive);
 }
