@@ -34,7 +34,7 @@ public class VehicleController {
 			return new ResponseEntity(this.vehicleService.saveVehicle(vehicle), HttpStatus.OK);
 
 		} catch (Exception e) {
-			return new ResponseEntity(e.getMessage(), HttpStatus.METHOD_FAILURE);
+			throw new RuntimeException(e);
 		}
 	}
 }

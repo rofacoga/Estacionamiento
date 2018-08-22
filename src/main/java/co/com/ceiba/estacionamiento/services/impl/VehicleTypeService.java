@@ -26,7 +26,9 @@ public class VehicleTypeService implements VehicleTypeServiceInterface {
 
 	@Override
 	public VehicleType saveType(VehicleType type) {
-		if (type == null) return new VehicleType();
+		if (type == null) {
+			return new VehicleType();
+		}
 
 		if (type.getId() == null) {
 			type.setRegistrationActive(true);

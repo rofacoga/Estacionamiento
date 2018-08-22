@@ -27,7 +27,9 @@ public class VehicleService implements VehicleServiceInterface {
 
 	@Override
 	public Vehicle saveVehicle(Vehicle vehicle) {
-		if (vehicle == null) return new Vehicle();
+		if (vehicle == null) {
+			return new Vehicle();
+		}
 
 		if (vehicle.getId() == null) {
 			vehicle.setRegistrationActive(true);
