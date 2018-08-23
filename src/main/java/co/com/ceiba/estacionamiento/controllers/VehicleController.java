@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.com.ceiba.estacionamiento.persistence.entities.Vehicle;
-import co.com.ceiba.estacionamiento.services.impl.VehicleService;
+import co.com.ceiba.estacionamiento.service.dtos.VehicleDto;
+import co.com.ceiba.estacionamiento.service.services.impl.VehicleService;
 
 /**
  * 
@@ -24,12 +24,12 @@ public class VehicleController {
 	private VehicleService vehicleService;
 
 	@RequestMapping("/allVehicles")
-	public ResponseEntity<List<Vehicle>> getVehicles() {
+	public ResponseEntity<List<VehicleDto>> getVehicles() {
 		return new ResponseEntity(this.vehicleService.getAllVehicles(), HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/createVehicle")
-	public ResponseEntity<Vehicle> createVehicle(@RequestBody Vehicle vehicle) {
+	public ResponseEntity<VehicleDto> createVehicle(@RequestBody VehicleDto vehicle) {
 		try {
 			return new ResponseEntity(this.vehicleService.saveVehicle(vehicle), HttpStatus.OK);
 

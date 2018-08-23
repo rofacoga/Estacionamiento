@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.com.ceiba.estacionamiento.persistence.entities.VehicleType;
-import co.com.ceiba.estacionamiento.services.VehicleTypeServiceInterface;
+import co.com.ceiba.estacionamiento.service.dtos.VehicleTypeDto;
+import co.com.ceiba.estacionamiento.service.services.VehicleTypeServiceInterface;
 
 /**
  * 
@@ -25,13 +25,13 @@ public class VehicleTypeController {
 	private VehicleTypeServiceInterface typeService;
 
 	@RequestMapping("/allTypes")
-	public ResponseEntity<List<VehicleType>> getPeople() {
+	public ResponseEntity<List<VehicleTypeDto>> getPeople() {
 		return new ResponseEntity(this.typeService.getAllTypes(), HttpStatus.OK);
 	}
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST, value = "/createType")
-	public ResponseEntity<VehicleType> createType(@RequestBody VehicleType type) {
+	public ResponseEntity<VehicleTypeDto> createType(@RequestBody VehicleTypeDto type) {
 		try {
 			return new ResponseEntity(this.typeService.saveType(type), HttpStatus.OK);
 

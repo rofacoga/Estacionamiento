@@ -1,63 +1,32 @@
-package co.com.ceiba.estacionamiento.persistence.entities;
+package co.com.ceiba.estacionamiento.service.dtos;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import co.com.ceiba.estacionamiento.persistence.entities.Keeper;
 
 /**
  * 
  * @author roger.cordoba
  */
-@Entity
-@Table(name = "KEEPERS")
-public class Keeper {
-	/**
-	 * attribute for Unique Personal Identification Number
-	 */
-	@Column(name = "UPIN", nullable = false)
+public class KeeperDto {
 	private String upin;
-
-	@Column(name = "FIRSTNAME", nullable = false)
 	private String firstName;
-
-	@Column(name = "SECONDNAME", nullable = false)
 	private String secondName;
-
-	@Column(name = "MOBILENUMBER", nullable = true)
 	private String mobileNumber;
-
-	@Column(name = "EMAIL", nullable = true)
 	private String email;
-
-	@Column(name = "username", nullable = false)
 	private String username;
-
-	@Column(name = "PASSWORD", nullable = false)
 	private String password;
 
-
-	@Id
-	@Column(name = "ID", nullable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "KEEPER_SEQ")
-	@SequenceGenerator(name = "KEEPER_SEQ", sequenceName = "KEEPER_SEQ", initialValue = 1, allocationSize = 1)
 	private Long id;
-
-	@Column(name = "REGISTRATION_ACTIVE", nullable = false)
 	private Boolean registrationActive;
-
-	@Column(name = "REGISTRATION_DATE", nullable = false)
 	private Calendar registrationDate;
 
 	/**
 	 * Constructor without params
 	 */
-	public Keeper() {
+	public KeeperDto() {
 		super();
 	}
 
@@ -75,8 +44,8 @@ public class Keeper {
 	 * @param registrationActive
 	 * @param registrationDate
 	 */
-	public Keeper(String upin, String firstName, String secondName, String mobileNumber, String email, String username,
-			String password, Long id, Boolean registrationActive, Calendar registrationDate) {
+	public KeeperDto(String upin, String firstName, String secondName, String mobileNumber, String email,
+			String username, String password, Long id, Boolean registrationActive, Calendar registrationDate) {
 		super();
 		this.upin = upin;
 		this.firstName = firstName;
@@ -88,6 +57,42 @@ public class Keeper {
 		this.id = id;
 		this.registrationActive = registrationActive;
 		this.registrationDate = registrationDate;
+	}
+
+	/**
+	 * Method that convert this dto object in entity object
+	 * 
+	 * @return this object in entity form
+	 */
+	public Keeper dtoToEntity() {
+		return new Keeper(this.upin, this.firstName, this.secondName, this.mobileNumber, this.email, this.username,
+				this.password, this.id, this.registrationActive, this.registrationDate);
+	}
+
+	/**
+	 * Method that convert entity object in dto object
+	 * 
+	 * @param type, is entity object to covert
+	 * @return dto object converted
+	 */
+	public KeeperDto entityToDto(Keeper type) {
+		return new KeeperDto(type.getUpin(), type.getFirstName(), type.getSecondName(), type.getMobileNumber(),
+				type.getEmail(), type.getUsername(), type.getPassword(), type.getId(), type.getRegistrationActive(),
+				type.getRegistrationDate());
+	}
+
+	/**
+	 * Method to convert list of entity object in list of dto object
+	 * 
+	 * @param lista, list of entity object to convert
+	 * @return the list of dtos objects converted
+	 */
+	public List<KeeperDto> listEntitiesToDtos(List<Keeper> lista) {
+		List<KeeperDto> list = new ArrayList<>();
+		for (Keeper k : lista) {
+			list.add(this.entityToDto(k));
+		}
+		return list;
 	}
 
 	/**

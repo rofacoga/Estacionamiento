@@ -12,15 +12,16 @@ import co.com.ceiba.estacionamiento.persistence.entities.Vehicle;
  */
 public interface VehicleRepository extends CrudRepository<Vehicle, Long> {
 	/**
+	 * Method that allows listing all active objects
 	 * 
-	 * @param regState
-	 * @return
+	 * @param isActive
+	 * @return the list of objects
 	 */
 	public List<Vehicle> findByRegistrationActive(Boolean isActive);
 
 	/**
 	 * 
-	 * @param regState
+	 * @param isActive
 	 * @param plate
 	 * @return
 	 */
@@ -28,7 +29,7 @@ public interface VehicleRepository extends CrudRepository<Vehicle, Long> {
 
 	/**
 	 * 
-	 * @param regState
+	 * @param isActive
 	 * @param plate
 	 * @return
 	 */

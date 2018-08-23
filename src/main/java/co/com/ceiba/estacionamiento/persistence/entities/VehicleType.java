@@ -8,12 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  * 
  * @author roger.cordoba
  */
-@Entity(name = "VEHICLE_TYPES")
+@Entity
+@Table(name = "VEHICLE_TYPES")
 public class VehicleType {
 
 	@Column(name = "TYPE", nullable = false)
@@ -31,6 +33,29 @@ public class VehicleType {
 
 	@Column(name = "REGISTRATION_DATE", nullable = false)
 	private Calendar registrationDate;
+
+	/**
+	 * Constructor without params
+	 */
+	public VehicleType() {
+		super();
+	}
+
+	/**
+	 * Constructor with all params
+	 * 
+	 * @param type
+	 * @param id
+	 * @param registrationActive
+	 * @param registrationDate
+	 */
+	public VehicleType(String type, Long id, Boolean registrationActive, Calendar registrationDate) {
+		super();
+		this.type = type;
+		this.id = id;
+		this.registrationActive = registrationActive;
+		this.registrationDate = registrationDate;
+	}
 
 	/**
 	 * @return the type

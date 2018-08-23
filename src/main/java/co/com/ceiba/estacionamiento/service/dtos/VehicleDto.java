@@ -1,51 +1,35 @@
-package co.com.ceiba.estacionamiento.persistence.entities;
+package co.com.ceiba.estacionamiento.service.dtos;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import co.com.ceiba.estacionamiento.persistence.entities.Vehicle;
 
 /**
  * 
  * @author roger.cordoba
  */
-@Entity
-@Table(name = "VEHICLES")
-public class Vehicle {
-
-	@Column(name = "PLATE", nullable = false)
-	private String plate;
-
-	@Column(name = "CYLINDER", nullable = true)
+public class VehicleDto {
+	private String 	plate;
 	private Integer cylinder;
+	private Long 	type;
 
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="TYPE", foreignKey=@ForeignKey(name="FK_VEHICLE_VEHICLETYPE_TYPE"), nullable=false)
-	private VehicleType type;
-
-
-	@Id
-	@Column(name = "ID", nullable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "VEHICLE_SEQ")
-	@SequenceGenerator(name = "VEHICLE_SEQ", sequenceName = "VEHICLE_SEQ", initialValue = 1, allocationSize = 1)
 	private Long id;
-
-	@Column(name = "REGISTRATION_ACTIVE", nullable = false)
 	private Boolean registrationActive;
-
-	@Column(name = "REGISTRATION_DATE", nullable = false)
 	private Calendar registrationDate;
+	
 
 	/**
+	 * Constructor without params
+	 */
+	public VehicleDto() {
+		super();
+	}
+
+	/**
+	 * Constructor with all params
+	 * 
 	 * @param plate
 	 * @param cylinder
 	 * @param type
@@ -53,16 +37,47 @@ public class Vehicle {
 	 * @param registrationActive
 	 * @param registrationDate
 	 */
-	public Vehicle(String plate, Integer cylinder, Long type, Long id, Boolean registrationActive,
-			Calendar registrationDate) {
+	public VehicleDto(String plate, Integer cylinder, Long type, Long id, Boolean registrationActive, Calendar registrationDate) {
 		super();
 		this.plate = plate;
 		this.cylinder = cylinder;
-		this.type = new VehicleType();
-		this.type.setId(type);
+		this.type = type;
 		this.id = id;
 		this.registrationActive = registrationActive;
 		this.registrationDate = registrationDate;
+	}
+
+	/**
+	 * Method that convert this dto object in entity object
+	 * 
+	 * @return this object in entity form
+	 */
+	public Vehicle dtoToEntity() {
+		return new Vehicle(this.plate, this.cylinder, this.type, this.id, this.registrationActive, this.registrationDate);
+	}
+
+	/**
+	 * Method that convert entity object in dto object
+	 * 
+	 * @param type, is entity object to covert
+	 * @return dto object converted
+	 */
+	public VehicleDto entityToDto(Vehicle vehicle) {
+		return new VehicleDto(vehicle.getPlate(), vehicle.getCylinder(), vehicle.getType().getId(), vehicle.getId(), vehicle.getRegistrationActive(), vehicle.getRegistrationDate());
+	}
+
+	/**
+	 * Method to convert list of entity object in list of dto object
+	 * 
+	 * @param lista, list of entity object to convert
+	 * @return the list of dtos objects converted
+	 */
+	public List<VehicleDto> listEntitiesToDtos(List<Vehicle> lista) {
+		List<VehicleDto> list = new ArrayList<>();
+		for (Vehicle v: lista) {
+			list.add(this.entityToDto(v));
+		}
+		return list;
 	}
 
 	/**
@@ -96,14 +111,14 @@ public class Vehicle {
 	/**
 	 * @return the type
 	 */
-	public VehicleType getType() {
+	public Long getType() {
 		return type;
 	}
 
 	/**
 	 * @param type the type to set
 	 */
-	public void setType(VehicleType type) {
+	public void setType(Long type) {
 		this.type = type;
 	}
 
