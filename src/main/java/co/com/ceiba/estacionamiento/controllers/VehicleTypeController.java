@@ -32,11 +32,6 @@ public class VehicleTypeController {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST, value = "/createType")
 	public ResponseEntity<VehicleTypeDto> createType(@RequestBody VehicleTypeDto type) {
-		try {
-			return new ResponseEntity(this.typeService.saveType(type), HttpStatus.OK);
-
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+		return new ResponseEntity(this.typeService.saveType(type), HttpStatus.OK);
 	}
 }

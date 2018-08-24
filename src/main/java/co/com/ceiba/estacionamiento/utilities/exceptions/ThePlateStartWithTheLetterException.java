@@ -1,4 +1,4 @@
-package co.com.ceiba.estacionamiento.utils.exceptions;
+package co.com.ceiba.estacionamiento.utilities.exceptions;
 
 public class ThePlateStartWithTheLetterException extends Exception {
 

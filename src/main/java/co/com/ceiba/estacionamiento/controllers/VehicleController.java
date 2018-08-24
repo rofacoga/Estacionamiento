@@ -28,13 +28,15 @@ public class VehicleController {
 		return new ResponseEntity(this.vehicleService.getAllVehicles(), HttpStatus.OK);
 	}
 
+	//TODO revisar esta parte para las excepciones propias!
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(method = RequestMethod.POST, value = "/createVehicle")
-	public ResponseEntity<VehicleDto> createVehicle(@RequestBody VehicleDto vehicle) {
+	public ResponseEntity<Object> createVehicle(@RequestBody VehicleDto vehicle) {
 		try {
 			return new ResponseEntity(this.vehicleService.saveVehicle(vehicle), HttpStatus.OK);
 
-		} catch (Exception e) {
-			throw new RuntimeException(e);
+		} catch (Exception cv) {
+			return new ResponseEntity("Error", HttpStatus.FAILED_DEPENDENCY);
 		}
 	}
 }

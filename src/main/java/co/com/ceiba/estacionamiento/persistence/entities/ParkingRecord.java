@@ -63,4 +63,196 @@ public class ParkingRecord {
 	@Column(name = "REGISTRATION_DATE", nullable = false)
 	private Calendar registrationDate;
 
+	/**
+	 * Constructor without params
+	 */
+	public ParkingRecord() {
+		super();
+	}
+
+	/**
+	 * Constructor with all params
+	 * 
+	 * @param keeperIn
+	 * @param keeperOut
+	 * @param vehicle
+	 * @param checkIn
+	 * @param checkOut
+	 * @param totalDays
+	 * @param totalHours
+	 * @param totalCost
+	 * @param id
+	 * @param registrationActive
+	 * @param registrationDate
+	 */
+	public ParkingRecord(Keeper keeperIn, Keeper keeperOut, Vehicle vehicle, Calendar checkIn, Calendar checkOut,
+			Integer totalDays, Integer totalHours, BigInteger totalCost, Long id, Boolean registrationActive,
+			Calendar registrationDate) {
+		super();
+		this.keeperIn = keeperIn;
+		this.keeperOut = keeperOut;
+		this.vehicle = vehicle;
+		this.checkIn = checkIn;
+		this.checkOut = checkOut;
+		this.totalDays = totalDays;
+		this.totalHours = totalHours;
+		this.totalCost = totalCost;
+		this.id = id;
+		this.registrationActive = registrationActive;
+		this.registrationDate = registrationDate;
+	}
+
+	/**
+	 * @return the keeperIn
+	 */
+	public Keeper getKeeperIn() {
+		return keeperIn;
+	}
+
+	/**
+	 * @param keeperIn the keeperIn to set
+	 */
+	public void setKeeperIn(Keeper keeperIn) {
+		this.keeperIn = keeperIn;
+	}
+
+	/**
+	 * @return the keeperOut
+	 */
+	public Keeper getKeeperOut() {
+		return keeperOut;
+	}
+
+	/**
+	 * @param keeperOut the keeperOut to set
+	 */
+	public void setKeeperOut(Keeper keeperOut) {
+		this.keeperOut = keeperOut;
+	}
+
+	/**
+	 * @return the vehicle
+	 */
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
+
+	/**
+	 * @param vehicle the vehicle to set
+	 */
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
+	}
+
+	/**
+	 * @return the checkIn
+	 */
+	public Calendar getCheckIn() {
+		return checkIn;
+	}
+
+	/**
+	 * @param checkIn the checkIn to set
+	 */
+	public void setCheckIn(Calendar checkIn) {
+		this.checkIn = checkIn;
+	}
+
+	/**
+	 * @return the checkOut
+	 */
+	public Calendar getCheckOut() {
+		return checkOut;
+	}
+
+	/**
+	 * @param checkOut the checkOut to set
+	 */
+	public void setCheckOut(Calendar checkOut) {
+		this.checkOut = checkOut;
+	}
+
+	/**
+	 * @return the totalDays
+	 */
+	public Integer getTotalDays() {
+		return totalDays;
+	}
+
+	/**
+	 * @param totalDays the totalDays to set
+	 */
+	public void setTotalDays(Integer totalDays) {
+		this.totalDays = totalDays;
+	}
+
+	/**
+	 * @return the totalHours
+	 */
+	public Integer getTotalHours() {
+		return totalHours;
+	}
+
+	/**
+	 * @param totalHours the totalHours to set
+	 */
+	public void setTotalHours(Integer totalHours) {
+		this.totalHours = totalHours;
+	}
+
+	/**
+	 * @return the totalCost
+	 */
+	public BigInteger getTotalCost() {
+		return totalCost;
+	}
+
+	/**
+	 * @param totalCost the totalCost to set
+	 */
+	public void setTotalCost(BigInteger totalCost) {
+		this.totalCost = totalCost;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the registrationActive
+	 */
+	public Boolean getRegistrationActive() {
+		return registrationActive;
+	}
+
+	/**
+	 * @param registrationActive the registrationActive to set
+	 */
+	public void setRegistrationActive(Boolean registrationActive) {
+		this.registrationActive = registrationActive;
+	}
+
+	/**
+	 * @return the registrationDate
+	 */
+	public Calendar getRegistrationDate() {
+		return registrationDate;
+	}
+
+	/**
+	 * @param registrationDate the registrationDate to set
+	 */
+	public void setRegistrationDate(Calendar registrationDate) {
+		this.registrationDate = registrationDate;
+	}
 }

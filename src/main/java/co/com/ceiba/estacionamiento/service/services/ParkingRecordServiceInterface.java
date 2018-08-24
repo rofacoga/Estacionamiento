@@ -3,7 +3,9 @@ package co.com.ceiba.estacionamiento.service.services;
 import java.util.List;
 
 import co.com.ceiba.estacionamiento.service.dtos.ParkingRecordDto;
-import co.com.ceiba.estacionamiento.utils.exceptions.ThePlateStartWithTheLetterException;
+import co.com.ceiba.estacionamiento.utilities.exceptions.DateCheckInIsAfterThanDateCheckOutException;
+import co.com.ceiba.estacionamiento.utilities.exceptions.DayToEvaluateInvalidException;
+import co.com.ceiba.estacionamiento.utilities.exceptions.ThePlateStartWithTheLetterException;
 
 /**
  * 
@@ -15,21 +17,28 @@ public interface ParkingRecordServiceInterface {
 	 * @return
 	 */
 	public Iterable<ParkingRecordDto> getAllRecords();
+	/**
+	 * 
+	 * @return
+	 */
+	public Iterable<ParkingRecordDto> getAllRecordsParked();
 
 	/**
 	 * 
 	 * @param record
 	 * @return
 	 * @throws ThePlateStartWithTheLetterException 
+	 * @throws DayToEvaluateInvalidException 
 	 */
-	public ParkingRecordDto saveCheckIn(ParkingRecordDto record) throws ThePlateStartWithTheLetterException;
+	public ParkingRecordDto saveCheckIn(ParkingRecordDto record) throws ThePlateStartWithTheLetterException, DayToEvaluateInvalidException;
 
 	/**
 	 * 
 	 * @param record
 	 * @return
+	 * @throws DateCheckInIsAfterThanDateCheckOutException 
 	 */
-	public ParkingRecordDto saveCheckOut(ParkingRecordDto record);
+	public ParkingRecordDto saveCheckOut(ParkingRecordDto record) throws DateCheckInIsAfterThanDateCheckOutException;
 
 	/**
 	 * 
@@ -43,5 +52,5 @@ public interface ParkingRecordServiceInterface {
 	 * @param plate
 	 * @return
 	 */
-	public List<ParkingRecordDto> searchAllByPlate(String plate);
+	public List<ParkingRecordDto> searchAllVehiclesParkedByPlate(String plate);
 }

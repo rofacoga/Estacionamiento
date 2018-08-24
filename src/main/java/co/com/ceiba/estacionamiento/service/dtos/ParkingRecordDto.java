@@ -1,7 +1,11 @@
 package co.com.ceiba.estacionamiento.service.dtos;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
+import co.com.ceiba.estacionamiento.persistence.entities.ParkingRecord;
 
 /**
  * 
@@ -21,6 +25,90 @@ public class ParkingRecordDto {
 	private Boolean registrationActive;
 	private Calendar registrationDate;
 
+
+	/**
+	 * Constructor without params
+	 */
+	public ParkingRecordDto() {
+		super();
+	}
+
+	/**
+	 * Constructor with all params
+	 * 
+	 * @param keeperIn
+	 * @param keeperOut
+	 * @param vehicle
+	 * @param checkIn
+	 * @param checkOut
+	 * @param totalDays
+	 * @param totalHours
+	 * @param totalCost
+	 * @param id
+	 * @param registrationActive
+	 * @param registrationDate
+	 */
+	public ParkingRecordDto(KeeperDto keeperIn, KeeperDto keeperOut, VehicleDto vehicle, Calendar checkIn,
+			Calendar checkOut, Integer totalDays, Integer totalHours, BigInteger totalCost, Long id,
+			Boolean registrationActive, Calendar registrationDate) {
+		super();
+		this.keeperIn = keeperIn;
+		this.keeperOut = keeperOut;
+		this.vehicle = vehicle;
+		this.checkIn = checkIn;
+		this.checkOut = checkOut;
+		this.totalDays = totalDays;
+		this.totalHours = totalHours;
+		this.totalCost = totalCost;
+		this.id = id;
+		this.registrationActive = registrationActive;
+		this.registrationDate = registrationDate;
+	}
+
+	/**
+	 * Method that convert this dto object in entity object
+	 * 
+	 * @return this object in entity form
+	 */
+	public ParkingRecord dtoToEntity() {
+		return new ParkingRecord(
+				this.keeperIn.dtoToEntity(), 
+				this.keeperOut.dtoToEntity(), 
+				this.vehicle.dtoToEntity(), 
+				this.checkIn, this.checkOut, 
+				this.totalDays, this.totalHours, this.totalCost, 
+				this.id, this.registrationActive, this.registrationDate);
+	}
+
+	/**
+	 * Method that convert entity object in dto object
+	 * 
+	 * @param type, is entity object to covert
+	 * @return dto object converted
+	 */
+	public ParkingRecordDto entityToDto(ParkingRecord record) {
+		return new ParkingRecordDto(
+				new KeeperDto().entityToDto(record.getKeeperIn()), 
+				new KeeperDto().entityToDto(record.getKeeperOut()), 
+				new VehicleDto().entityToDto(record.getVehicle()), 
+				record.getCheckIn(), record.getCheckOut(), 
+				record.getTotalDays(), record.getTotalHours(), record.getTotalCost(), 
+				record.getId(), record.getRegistrationActive(), record.getRegistrationDate());
+	}
+
+	/**
+	 * Method to convert list of entity object in list of dto object
+	 * 
+	 * @param lista, list of entity object to convert
+	 * @return the list of dtos objects converted
+	 */
+	public List<ParkingRecordDto> listEntitiesToDtos(List<ParkingRecord> lista) {
+		List<ParkingRecordDto> list = new ArrayList<>();
+		for (ParkingRecord pr: lista) {
+			list.add(this.entityToDto(pr));
+		}
+		return list;
+	}
 
 	/**
 	 * @return the keeperIn

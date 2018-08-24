@@ -1,8 +1,10 @@
-package co.com.ceiba.estacionamiento.utils;
+package co.com.ceiba.estacionamiento.utilities;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import co.com.ceiba.estacionamiento.utilities.Validations;
 
 public class ValidationsTest {
 
