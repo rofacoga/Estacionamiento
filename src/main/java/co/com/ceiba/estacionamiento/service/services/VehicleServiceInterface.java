@@ -42,4 +42,11 @@ public interface VehicleServiceInterface {
 	 * @return
 	 */
 	public List<VehicleDto> searchAllByPlate( String plate );
+
+	/**
+	 * 
+	 * @param idType
+	 * @return
+	 */
+	public VehicleDto searchById(Long idType);
 }

@@ -30,6 +30,20 @@ public class VehicleService implements VehicleServiceInterface {
 	}
 
 	@Override
+	public VehicleDto searchById(Long id) {
+		if (id==null) {
+			return new VehicleDto();
+		}
+
+		Optional<Vehicle> vehicle = this.repository.findById(id);
+		if (vehicle.isPresent()) {
+			return new VehicleDto().entityToDto(vehicle.get());
+		} else {
+			return new VehicleDto();
+		}
+	}
+
+	@Override
 	public VehicleDto saveVehicle(VehicleDto vehicle) {
 		if (vehicle == null) {
 			return new VehicleDto();

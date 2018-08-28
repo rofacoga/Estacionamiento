@@ -1,12 +1,19 @@
 package co.com.ceiba.estacionamiento.services;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import co.com.ceiba.estacionamiento.service.dtos.VehicleDto;
 import co.com.ceiba.estacionamiento.service.services.VehicleServiceInterface;
+import co.com.ceiba.estacionamiento.utilities.VehicleTypeEnum;
 
 @Transactional
 @SpringBootTest
@@ -17,13 +24,13 @@ public class VehicleServiceTest {
 
 	private Long idType;
 
-	/**
 	@Test
 	@Rollback
 	public void testSaveType() {
-		VehicleTypeDto type = new VehicleTypeDto();
-		type.setType("motocicleta");
-		type=this.service.saveType(type);
+		VehicleDto type = new VehicleDto();
+		type.setPlate("abc123");
+		type.setType(VehicleTypeEnum.CAR);
+		type=this.service.saveVehicle(type);
 
 		assertNotNull("Verify that object have an id", type.getId());
 		this.idType = type.getId();
@@ -31,8 +38,8 @@ public class VehicleServiceTest {
 
 	@Test
 	@Rollback
-	public void testSearchById() {
-		VehicleTypeDto type = this.service.searchById(null);
+	public void testSearchByPlate() {
+		VehicleDto type = this.service.searchById(null);
 		assertNull("Verify that object not have an id", type.getId());
 
 		this.testSaveType();
@@ -40,6 +47,7 @@ public class VehicleServiceTest {
 		assertNotNull("Verify that object have an id", type.getId());
 	}
 
+	/**
 	@Test
 	@Rollback
 	public void testGetAllTypes() {
