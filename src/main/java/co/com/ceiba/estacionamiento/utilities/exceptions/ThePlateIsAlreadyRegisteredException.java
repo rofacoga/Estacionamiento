@@ -4,7 +4,7 @@ package co.com.ceiba.estacionamiento.utilities.exceptions;
  * 
  * @author roger.cordoba
  */
-public class ThePlateIsAlreadyRegisteredException extends Exception {
+public class ThePlateIsAlreadyRegisteredException extends AnExceptionHandler {
 
 	/**
 	 * 

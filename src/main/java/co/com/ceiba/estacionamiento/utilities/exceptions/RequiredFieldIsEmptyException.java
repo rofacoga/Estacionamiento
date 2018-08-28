@@ -4,7 +4,7 @@ package co.com.ceiba.estacionamiento.utilities.exceptions;
  * 
  * @author roger.cordoba
  */
-public class RequiredFieldIsEmptyException extends Exception {
+public class RequiredFieldIsEmptyException extends AnExceptionHandler {
 
 	/**
 	 * 

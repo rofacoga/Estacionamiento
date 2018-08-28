@@ -13,7 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import co.com.ceiba.estacionamiento.persistence.entities.ParkingRecord;
 import co.com.ceiba.estacionamiento.persistence.repositories.ParkingRecordRepository;
 import co.com.ceiba.estacionamiento.service.dtos.ParkingRecordDto;
+import co.com.ceiba.estacionamiento.service.dtos.VehicleDto;
 import co.com.ceiba.estacionamiento.service.services.ParkingRecordServiceInterface;
+import co.com.ceiba.estacionamiento.service.services.VehicleServiceInterface;
 import co.com.ceiba.estacionamiento.utilities.Constants;
 import co.com.ceiba.estacionamiento.utilities.Utils;
 import co.com.ceiba.estacionamiento.utilities.Validations;
@@ -33,6 +35,8 @@ import co.com.ceiba.estacionamiento.utilities.exceptions.ThePlateStartWithTheLet
 @Service
 @Transactional
 public class ParkingRecordService implements ParkingRecordServiceInterface {
+	@Autowired
+	private VehicleServiceInterface vehicleService;
 
 	@Autowired
 	private ParkingRecordRepository repository;
@@ -41,6 +45,14 @@ public class ParkingRecordService implements ParkingRecordServiceInterface {
 	public ParkingRecordDto saveCheckIn(ParkingRecordDto record)
 			throws DayToEvaluateInvalidException, ThePlateStartWithTheLetterException,
 			ThePlateIsAlreadyRegisteredException, ParkingExceedsTheAllowedCapacityException {
+
+		VehicleDto vehicle = this.vehicleService.searchByPlate(record.getVehicle().getPlate());
+
+		if (vehicle.getId() == null) {
+			vehicle = this.vehicleService.saveVehicle(record.getVehicle());
+		}
+
+		record.setVehicle(vehicle);
 
 		this.validateCheckInRecord(record);
 

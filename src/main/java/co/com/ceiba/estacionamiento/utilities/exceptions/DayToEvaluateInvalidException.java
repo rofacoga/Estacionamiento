@@ -4,7 +4,7 @@ package co.com.ceiba.estacionamiento.utilities.exceptions;
  * 
  * @author roger.cordoba
  */
-public class DayToEvaluateInvalidException extends Exception {
+public class DayToEvaluateInvalidException extends AnExceptionHandler {
 
 	/**
 	 * 

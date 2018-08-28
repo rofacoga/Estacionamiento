@@ -4,7 +4,7 @@ package co.com.ceiba.estacionamiento.utilities.exceptions;
  * 
  * @author roger.cordoba
  */
-public class ThePlateStartWithTheLetterException extends Exception {
+public class ThePlateStartWithTheLetterException extends AnExceptionHandler {
 
 	/**
 	 * 

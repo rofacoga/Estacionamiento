@@ -10,17 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.com.ceiba.estacionamiento.service.dtos.KeeperDto;
 import co.com.ceiba.estacionamiento.service.dtos.ParkingRecordDto;
-import co.com.ceiba.estacionamiento.service.dtos.VehicleDto;
 import co.com.ceiba.estacionamiento.service.services.KeeperServiceInterface;
 import co.com.ceiba.estacionamiento.service.services.ParkingRecordServiceInterface;
-import co.com.ceiba.estacionamiento.service.services.VehicleServiceInterface;
-import co.com.ceiba.estacionamiento.utilities.exceptions.DateCheckInIsAfterThanDateCheckOutException;
-import co.com.ceiba.estacionamiento.utilities.exceptions.DayToEvaluateInvalidException;
-import co.com.ceiba.estacionamiento.utilities.exceptions.ParkingExceedsTheAllowedCapacityException;
-import co.com.ceiba.estacionamiento.utilities.exceptions.RegistrationOfParkedVehicleNotFoundException;
-import co.com.ceiba.estacionamiento.utilities.exceptions.RequiredFieldIsEmptyException;
-import co.com.ceiba.estacionamiento.utilities.exceptions.ThePlateIsAlreadyRegisteredException;
-import co.com.ceiba.estacionamiento.utilities.exceptions.ThePlateStartWithTheLetterException;
+import co.com.ceiba.estacionamiento.utilities.exceptions.AnExceptionHandler;
 
 /**
  * 
@@ -33,8 +25,6 @@ public class KeeperController {
 	private KeeperServiceInterface keeperService;
 	@Autowired
 	private ParkingRecordServiceInterface recordService;
-	@Autowired
-	private VehicleServiceInterface vehicleService;
 
 	/**
 	 * 
@@ -47,23 +37,13 @@ public class KeeperController {
 	 * @throws ParkingExceedsTheAllowedCapacityException
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = "/checkIn")
-	public ResponseEntity<Object> checkIn(@RequestBody ParkingRecordDto record)
-			throws ThePlateIsAlreadyRegisteredException, ThePlateStartWithTheLetterException,
-			DayToEvaluateInvalidException, ParkingExceedsTheAllowedCapacityException {
-		VehicleDto vehicle = this.vehicleService.searchByPlate(record.getVehicle().getPlate());
-
-		if (vehicle.getId() == null) {
-			vehicle = this.vehicleService.saveVehicle(record.getVehicle());
-		}
-
-		record.setVehicle(vehicle);
+	public ResponseEntity<Object> checkIn(@RequestBody ParkingRecordDto record) throws AnExceptionHandler {
 		return new ResponseEntity<>(this.recordService.saveCheckIn(record), HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/checkOut")
 	public ResponseEntity<Object> checkOut(@RequestBody ParkingRecordDto record)
-			throws DateCheckInIsAfterThanDateCheckOutException, RegistrationOfParkedVehicleNotFoundException,
-			RequiredFieldIsEmptyException {
+			throws AnExceptionHandler {
 		return new ResponseEntity<>(this.recordService.saveCheckOut(record), HttpStatus.OK);
 	}
 

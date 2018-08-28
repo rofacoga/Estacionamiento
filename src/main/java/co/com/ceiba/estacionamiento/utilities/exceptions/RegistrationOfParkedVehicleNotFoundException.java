@@ -4,7 +4,7 @@ package co.com.ceiba.estacionamiento.utilities.exceptions;
  * 
  * @author roger.cordoba
  */
-public class RegistrationOfParkedVehicleNotFoundException extends Exception {
+public class RegistrationOfParkedVehicleNotFoundException extends AnExceptionHandler {
 
 	/**
 	 * 

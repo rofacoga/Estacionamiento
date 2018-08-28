@@ -4,7 +4,7 @@ package co.com.ceiba.estacionamiento.utilities.exceptions;
  * 
  * @author roger.cordoba
  */
-public class DateCheckInIsAfterThanDateCheckOutException extends Exception {
+public class DateCheckInIsAfterThanDateCheckOutException extends AnExceptionHandler {
 
 	/**
 	 * 
