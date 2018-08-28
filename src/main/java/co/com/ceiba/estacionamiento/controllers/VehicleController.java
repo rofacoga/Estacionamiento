@@ -32,7 +32,6 @@ public class VehicleController {
 		return new ResponseEntity<>(VehicleTypeEnum.values(), HttpStatus.OK);
 	}
 
-
 	@RequestMapping(method = RequestMethod.POST, value = "/createVehicle")
 	public ResponseEntity<Object> createVehicle(@RequestBody VehicleDto vehicle) {
 		return new ResponseEntity<>(this.vehicleService.saveVehicle(vehicle), HttpStatus.OK);

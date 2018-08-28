@@ -20,6 +20,7 @@ import co.com.ceiba.estacionamiento.utilities.Constants;
 import co.com.ceiba.estacionamiento.utilities.Utils;
 import co.com.ceiba.estacionamiento.utilities.Validations;
 import co.com.ceiba.estacionamiento.utilities.VehicleTypeEnum;
+import co.com.ceiba.estacionamiento.utilities.exceptions.AnExceptionHandler;
 import co.com.ceiba.estacionamiento.utilities.exceptions.DateCheckInIsAfterThanDateCheckOutException;
 import co.com.ceiba.estacionamiento.utilities.exceptions.DayToEvaluateInvalidException;
 import co.com.ceiba.estacionamiento.utilities.exceptions.ParkingExceedsTheAllowedCapacityException;
@@ -42,9 +43,7 @@ public class ParkingRecordService implements ParkingRecordServiceInterface {
 	private ParkingRecordRepository repository;
 
 	@Override
-	public ParkingRecordDto saveCheckIn(ParkingRecordDto record)
-			throws DayToEvaluateInvalidException, ThePlateStartWithTheLetterException,
-			ThePlateIsAlreadyRegisteredException, ParkingExceedsTheAllowedCapacityException {
+	public ParkingRecordDto saveCheckIn(ParkingRecordDto record) throws AnExceptionHandler {
 
 		VehicleDto vehicle = this.vehicleService.searchByPlate(record.getVehicle().getPlate());
 
@@ -67,8 +66,7 @@ public class ParkingRecordService implements ParkingRecordServiceInterface {
 	}
 
 	@Override
-	public ParkingRecordDto saveCheckOut(ParkingRecordDto record) throws DateCheckInIsAfterThanDateCheckOutException,
-			RegistrationOfParkedVehicleNotFoundException, RequiredFieldIsEmptyException {
+	public ParkingRecordDto saveCheckOut(ParkingRecordDto record) throws AnExceptionHandler {
 
 		Calendar checkOut = record.getCheckOut();
 		Long keeperOut = record.getKeeperOut();
@@ -200,15 +198,15 @@ public class ParkingRecordService implements ParkingRecordServiceInterface {
 		}
 
 		if (record.getCheckOut().before(record.getCheckIn())) {
-			throw new DateCheckInIsAfterThanDateCheckOutException(
-					Constants.MESSAGE_ERROR_CHECK_OUT_CALENDAR_IS_BEFORE);
+			throw new DateCheckInIsAfterThanDateCheckOutException(Constants.MESSAGE_ERROR_CHECK_OUT_CALENDAR_IS_BEFORE);
 		}
 
 		ParkingRecordDto recordDto = this.searchByPlate(record.getVehicle().getPlate());
 
 		if (recordDto.getId() == null) {
-			throw new RegistrationOfParkedVehicleNotFoundException(Constants.MESSAGE_ERROR_CHECK_OUT_VEHICLE_NOT_FOUND_1
-					+ record.getVehicle().getPlate().toUpperCase() + Constants.MESSAGE_ERROR_CHECK_OUT_VEHICLE_NOT_FOUND_2);
+			throw new RegistrationOfParkedVehicleNotFoundException(
+					Constants.MESSAGE_ERROR_CHECK_OUT_VEHICLE_NOT_FOUND_1 + record.getVehicle().getPlate().toUpperCase()
+							+ Constants.MESSAGE_ERROR_CHECK_OUT_VEHICLE_NOT_FOUND_2);
 		}
 
 	}

@@ -13,7 +13,7 @@ import co.com.ceiba.estacionamiento.persistence.entities.Keeper;
 public class KeeperDto {
 	private String dni;
 	private String firstName;
-	private String secondName;
+	private String lastName;
 	private String mobileNumber;
 	private String email;
 	private String username;
@@ -35,7 +35,7 @@ public class KeeperDto {
 	 * 
 	 * @param dni
 	 * @param firstName
-	 * @param secondName
+	 * @param lastName
 	 * @param mobileNumber
 	 * @param email
 	 * @param username
@@ -44,12 +44,12 @@ public class KeeperDto {
 	 * @param registrationActive
 	 * @param registrationDate
 	 */
-	public KeeperDto(String dni, String firstName, String secondName, String mobileNumber, String email,
+	public KeeperDto(String dni, String firstName, String lastName, String mobileNumber, String email,
 			String username, String password, Long id, Boolean registrationActive, Calendar registrationDate) {
 		super();
 		this.dni = dni;
 		this.firstName = firstName;
-		this.secondName = secondName;
+		this.lastName = lastName;
 		this.mobileNumber = mobileNumber;
 		this.email = email;
 		this.username = username;
@@ -65,7 +65,7 @@ public class KeeperDto {
 	 * @return this object in entity form
 	 */
 	public Keeper dtoToEntity() {
-		return new Keeper(this.dni, this.firstName, this.secondName, this.mobileNumber, this.email, this.username,
+		return new Keeper(this.dni, this.firstName, this.lastName, this.mobileNumber, this.email, this.username,
 				this.password, this.id, this.registrationActive, this.registrationDate);
 	}
 
@@ -124,17 +124,17 @@ public class KeeperDto {
 	}
 
 	/**
-	 * @return the secondName
+	 * @return the lastName
 	 */
-	public String getSecondName() {
-		return secondName;
+	public String getLastName() {
+		return lastName;
 	}
 
 	/**
-	 * @param secondName the secondName to set
+	 * @param lastName the lastName to set
 	 */
-	public void setSecondName(String secondName) {
-		this.secondName = secondName;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	/**

@@ -12,6 +12,8 @@ import co.com.ceiba.estacionamiento.persistence.entities.Vehicle;
 import co.com.ceiba.estacionamiento.persistence.repositories.VehicleRepository;
 import co.com.ceiba.estacionamiento.service.dtos.VehicleDto;
 import co.com.ceiba.estacionamiento.service.services.VehicleServiceInterface;
+import co.com.ceiba.estacionamiento.utilities.Constants;
+import co.com.ceiba.estacionamiento.utilities.VehicleTypeEnum;
 
 /**
  * 
@@ -31,7 +33,7 @@ public class VehicleService implements VehicleServiceInterface {
 
 	@Override
 	public VehicleDto searchById(Long id) {
-		if (id==null) {
+		if (id == null) {
 			return new VehicleDto();
 		}
 
@@ -50,6 +52,10 @@ public class VehicleService implements VehicleServiceInterface {
 		}
 
 		if (vehicle.getId() == null) {
+			if (vehicle.getType() == VehicleTypeEnum.MOTORCYCLE) {
+				vehicle.setCylinderGreaterThan500((vehicle.getCylinder() == null) ? vehicle.getCylinderGreaterThan500()
+						: (vehicle.getCylinder() > Constants.CYLINDER_MAX_MOTOCYCLES));
+			}
 			vehicle.setRegistrationActive(true);
 			vehicle.setRegistrationDate(Calendar.getInstance());
 		}
@@ -70,7 +76,8 @@ public class VehicleService implements VehicleServiceInterface {
 
 	@Override
 	public VehicleDto searchByPlate(String plate) {
-		Optional<Vehicle> vehicle = this.repository.findByRegistrationActiveAndPlateIgnoreCase(true, plate.toLowerCase().trim());
+		Optional<Vehicle> vehicle = this.repository.findByRegistrationActiveAndPlateIgnoreCase(true,
+				plate.toLowerCase().trim());
 		if (vehicle.isPresent()) {
 			return new VehicleDto().entityToDto(vehicle.get());
 		} else {
@@ -80,6 +87,7 @@ public class VehicleService implements VehicleServiceInterface {
 
 	@Override
 	public List<VehicleDto> searchAllByPlate(String plate) {
-		return new VehicleDto().listEntitiesToDtos(this.repository.findByRegistrationActiveAndPlateStartingWith(true, plate));
+		return new VehicleDto()
+				.listEntitiesToDtos(this.repository.findByRegistrationActiveAndPlateStartingWith(true, plate));
 	}
 }

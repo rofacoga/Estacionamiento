@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import co.com.ceiba.estacionamiento.utilities.exceptions.DateCheckInIsAfterThanDateCheckOutException;
 import co.com.ceiba.estacionamiento.utilities.exceptions.DayToEvaluateInvalidException;
+import co.com.ceiba.estacionamiento.utilities.exceptions.IncorrectDataLoginException;
 import co.com.ceiba.estacionamiento.utilities.exceptions.ParkingExceedsTheAllowedCapacityException;
 import co.com.ceiba.estacionamiento.utilities.exceptions.RegistrationOfParkedVehicleNotFoundException;
 import co.com.ceiba.estacionamiento.utilities.exceptions.ThePlateIsAlreadyRegisteredException;
@@ -39,6 +40,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler({ 
 		DateCheckInIsAfterThanDateCheckOutException.class,
 		DayToEvaluateInvalidException.class,
+		IncorrectDataLoginException.class,
 		ParkingExceedsTheAllowedCapacityException.class,
 		RegistrationOfParkedVehicleNotFoundException.class,
 		ThePlateIsAlreadyRegisteredException.class,

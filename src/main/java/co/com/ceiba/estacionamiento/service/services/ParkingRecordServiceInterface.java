@@ -3,13 +3,7 @@ package co.com.ceiba.estacionamiento.service.services;
 import java.util.List;
 
 import co.com.ceiba.estacionamiento.service.dtos.ParkingRecordDto;
-import co.com.ceiba.estacionamiento.utilities.exceptions.DateCheckInIsAfterThanDateCheckOutException;
-import co.com.ceiba.estacionamiento.utilities.exceptions.DayToEvaluateInvalidException;
-import co.com.ceiba.estacionamiento.utilities.exceptions.ParkingExceedsTheAllowedCapacityException;
-import co.com.ceiba.estacionamiento.utilities.exceptions.RegistrationOfParkedVehicleNotFoundException;
-import co.com.ceiba.estacionamiento.utilities.exceptions.RequiredFieldIsEmptyException;
-import co.com.ceiba.estacionamiento.utilities.exceptions.ThePlateIsAlreadyRegisteredException;
-import co.com.ceiba.estacionamiento.utilities.exceptions.ThePlateStartWithTheLetterException;
+import co.com.ceiba.estacionamiento.utilities.exceptions.AnExceptionHandler;
 
 /**
  * 
@@ -37,7 +31,7 @@ public interface ParkingRecordServiceInterface {
 	 * @throws ThePlateIsAlreadyRegisteredException 
 	 * @throws ParkingExceedsTheAllowedCapacityException 
 	 */
-	public ParkingRecordDto saveCheckIn(ParkingRecordDto record) throws ThePlateStartWithTheLetterException, DayToEvaluateInvalidException, ThePlateIsAlreadyRegisteredException, ParkingExceedsTheAllowedCapacityException;
+	public ParkingRecordDto saveCheckIn(ParkingRecordDto record) throws AnExceptionHandler;
 
 	/**
 	 * 
@@ -47,7 +41,7 @@ public interface ParkingRecordServiceInterface {
 	 * @throws RegistrationOfParkedVehicleNotFoundException 
 	 * @throws RequiredFieldIsEmptyException 
 	 */
-	public ParkingRecordDto saveCheckOut(ParkingRecordDto record) throws DateCheckInIsAfterThanDateCheckOutException, RegistrationOfParkedVehicleNotFoundException, RequiredFieldIsEmptyException;
+	public ParkingRecordDto saveCheckOut(ParkingRecordDto record) throws AnExceptionHandler;
 
 	/**
 	 * 

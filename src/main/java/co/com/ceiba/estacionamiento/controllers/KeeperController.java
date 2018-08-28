@@ -26,24 +26,18 @@ public class KeeperController {
 	@Autowired
 	private ParkingRecordServiceInterface recordService;
 
-	/**
-	 * 
-	 * @param record
-	 * @return
-	 * 
-	 * @throws ThePlateIsAlreadyRegisteredException
-	 * @throws DayToEvaluateInvalidException
-	 * @throws ThePlateStartWithTheLetterException
-	 * @throws ParkingExceedsTheAllowedCapacityException
-	 */
+	@RequestMapping(method = RequestMethod.POST, value = "/login")
+	public ResponseEntity<Object> login(@RequestBody KeeperDto keeper) throws AnExceptionHandler {
+		return new ResponseEntity<>(this.keeperService.login(keeper.getUsername(), keeper.getPassword()), HttpStatus.OK);
+	}
+
 	@RequestMapping(method = RequestMethod.POST, value = "/checkIn")
 	public ResponseEntity<Object> checkIn(@RequestBody ParkingRecordDto record) throws AnExceptionHandler {
 		return new ResponseEntity<>(this.recordService.saveCheckIn(record), HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/checkOut")
-	public ResponseEntity<Object> checkOut(@RequestBody ParkingRecordDto record)
-			throws AnExceptionHandler {
+	public ResponseEntity<Object> checkOut(@RequestBody ParkingRecordDto record) throws AnExceptionHandler {
 		return new ResponseEntity<>(this.recordService.saveCheckOut(record), HttpStatus.OK);
 	}
 
@@ -53,12 +47,12 @@ public class KeeperController {
 	}
 
 	@RequestMapping(value = "/parkedVehiclesHistory")
-	public ResponseEntity<Object> allRecords() {
+	public ResponseEntity<Object> parkedVehiclesHistory() {
 		return new ResponseEntity<>(this.recordService.getAllRecords(), HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/saveKeeper")
-	public ResponseEntity<Object> createVehicle(@RequestBody KeeperDto keeper) {
+	public ResponseEntity<Object> saveKeeper(@RequestBody KeeperDto keeper) {
 		return new ResponseEntity<>(this.keeperService.saveKeeper(keeper), HttpStatus.OK);
 	}
 }

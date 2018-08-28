@@ -13,6 +13,7 @@ public final class Constants {
 	public static final String MESSAGE_ERROR_CHECK_OUT_CALENDAR_IS_BEFORE = "The Calendar Out Date is before of Calendar In Date!";
 	public static final String MESSAGE_ERROR_CHECK_OUT_VEHICLE_NOT_FOUND_1 = "The vehicle with license plate: ";
 	public static final String MESSAGE_ERROR_CHECK_OUT_VEHICLE_NOT_FOUND_2 = ", not found in the parking lot!";
+	public static final String MESSAGE_ERROR_LOGIN_INCORRECT_DATA = "You have entered an invalid username or password";
 
 	/**
 	 * minimum hours for the day
@@ -24,7 +25,7 @@ public final class Constants {
 	public static final Double COST_HOUR_CARS = 1000.0;
 	public static final Double COST_DAY_CARS = 8000.0;
 
-	public static final Integer CANT_MAX_MOTORCYCLES = 5;
+	public static final Integer CANT_MAX_MOTORCYCLES = 10;
 	public static final Integer CYLINDER_MAX_MOTOCYCLES = 500;
 	public static final Double COST_HOUR_MOTORCYCLES = 500.0;
 	public static final Double COST_DAY_MOTORCYCLES = 4000.0;

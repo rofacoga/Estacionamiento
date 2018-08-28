@@ -26,14 +26,18 @@ public class VehicleServiceTest {
 
 	@Test
 	@Rollback
-	public void testSaveType() {
+	public void testSaveVehicle() {
 		VehicleDto type = new VehicleDto();
+		
 		type.setPlate("abc123");
 		type.setType(VehicleTypeEnum.CAR);
 		type=this.service.saveVehicle(type);
 
 		assertNotNull("Verify that object have an id", type.getId());
 		this.idType = type.getId();
+
+		type=this.service.saveVehicle(null);
+		assertNull("Verify that object have an id", type.getId());
 	}
 
 	@Test
@@ -42,7 +46,7 @@ public class VehicleServiceTest {
 		VehicleDto type = this.service.searchById(null);
 		assertNull("Verify that object not have an id", type.getId());
 
-		this.testSaveType();
+		this.testSaveVehicle();
 		type = this.service.searchById(this.idType);
 		assertNotNull("Verify that object have an id", type.getId());
 	}

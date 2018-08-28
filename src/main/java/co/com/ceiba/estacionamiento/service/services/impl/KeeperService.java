@@ -11,6 +11,9 @@ import co.com.ceiba.estacionamiento.persistence.entities.Keeper;
 import co.com.ceiba.estacionamiento.persistence.repositories.KeeperRepository;
 import co.com.ceiba.estacionamiento.service.dtos.KeeperDto;
 import co.com.ceiba.estacionamiento.service.services.KeeperServiceInterface;
+import co.com.ceiba.estacionamiento.utilities.Constants;
+import co.com.ceiba.estacionamiento.utilities.exceptions.AnExceptionHandler;
+import co.com.ceiba.estacionamiento.utilities.exceptions.IncorrectDataLoginException;
 
 /**
  * 
@@ -67,15 +70,14 @@ public class KeeperService implements KeeperServiceInterface {
 	}
 
 	@Override
-	public KeeperDto login(String user, String pass) {
-		if (user==null
-				||pass==null) {
-			return new KeeperDto();
+	public KeeperDto login(String user, String pass) throws AnExceptionHandler {
+		if (user == null || user.trim() == "" || pass == null || pass.trim() == "") {
+			throw new IncorrectDataLoginException(Constants.MESSAGE_ERROR_LOGIN_INCORRECT_DATA);
 		}
 
 		Long idKeeper = this.repository.findIdByUserAndPass(user, pass);
-		if (idKeeper==null) {
-			return new KeeperDto();
+		if (idKeeper == null) {
+			throw new IncorrectDataLoginException(Constants.MESSAGE_ERROR_LOGIN_INCORRECT_DATA);
 		}
 
 		return this.searchById(idKeeper);

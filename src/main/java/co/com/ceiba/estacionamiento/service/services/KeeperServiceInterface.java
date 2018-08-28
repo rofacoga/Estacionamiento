@@ -1,6 +1,7 @@
 package co.com.ceiba.estacionamiento.service.services;
 
 import co.com.ceiba.estacionamiento.service.dtos.KeeperDto;
+import co.com.ceiba.estacionamiento.utilities.exceptions.AnExceptionHandler;
 
 /**
  * 
@@ -40,6 +41,7 @@ public interface KeeperServiceInterface {
 	 * @param user
 	 * @param pass
 	 * @return
+	 * @throws AnExceptionHandler 
 	 */
-	public KeeperDto login(String user, String pass);
+	public KeeperDto login(String user, String pass) throws AnExceptionHandler;
 }
