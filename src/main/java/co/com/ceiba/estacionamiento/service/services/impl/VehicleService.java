@@ -64,6 +64,7 @@ public class VehicleService implements VehicleServiceInterface {
 				vehicle.setCylinderGreaterThan500((vehicle.getCylinder() == null) ? vehicle.getCylinderGreaterThan500()
 						: (vehicle.getCylinder() > Constants.CYLINDER_MAX_MOTOCYCLES));
 			}
+
 			vehicle.setRegistrationActive(true);
 			vehicle.setRegistrationDate(Calendar.getInstance());
 		}
