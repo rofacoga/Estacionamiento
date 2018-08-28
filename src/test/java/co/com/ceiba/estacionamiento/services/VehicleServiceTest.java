@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import co.com.ceiba.estacionamiento.service.dtos.VehicleDto;
 import co.com.ceiba.estacionamiento.service.services.VehicleServiceInterface;
 import co.com.ceiba.estacionamiento.utilities.VehicleTypeEnum;
+import co.com.ceiba.estacionamiento.utilities.exceptions.AnExceptionHandler;
 
 @Transactional
 @SpringBootTest
@@ -26,7 +27,7 @@ public class VehicleServiceTest {
 
 	@Test
 	@Rollback
-	public void testSaveVehicle() {
+	public void testSaveVehicle() throws AnExceptionHandler {
 		VehicleDto type = new VehicleDto();
 		
 		type.setPlate("abc123");
@@ -42,7 +43,7 @@ public class VehicleServiceTest {
 
 	@Test
 	@Rollback
-	public void testSearchByPlate() {
+	public void testSearchByPlate() throws AnExceptionHandler {
 		VehicleDto type = this.service.searchById(null);
 		assertNull("Verify that object not have an id", type.getId());
 

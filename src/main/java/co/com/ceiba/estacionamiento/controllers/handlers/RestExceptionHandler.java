@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import co.com.ceiba.estacionamiento.utilities.exceptions.CreateVehicleException;
 import co.com.ceiba.estacionamiento.utilities.exceptions.DateCheckInIsAfterThanDateCheckOutException;
 import co.com.ceiba.estacionamiento.utilities.exceptions.DayToEvaluateInvalidException;
 import co.com.ceiba.estacionamiento.utilities.exceptions.IncorrectDataLoginException;
@@ -38,6 +39,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ResponseStatus(HttpStatus.CONFLICT)
 	@ExceptionHandler({ 
+		CreateVehicleException.class,
 		DateCheckInIsAfterThanDateCheckOutException.class,
 		DayToEvaluateInvalidException.class,
 		IncorrectDataLoginException.class,

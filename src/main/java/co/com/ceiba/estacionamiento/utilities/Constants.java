@@ -14,6 +14,7 @@ public final class Constants {
 	public static final String MESSAGE_ERROR_CHECK_OUT_VEHICLE_NOT_FOUND_1 = "The vehicle with license plate: ";
 	public static final String MESSAGE_ERROR_CHECK_OUT_VEHICLE_NOT_FOUND_2 = ", not found in the parking lot!";
 	public static final String MESSAGE_ERROR_LOGIN_INCORRECT_DATA = "You have entered an invalid username or password";
+	public static final String MESSAGE_ERROR_CREATE_VEHICLE_PLATE_DUPLICATED = "There is already a vehicle with a license plate: ";
 
 	/**
 	 * minimum hours for the day

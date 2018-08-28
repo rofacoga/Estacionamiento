@@ -4,7 +4,7 @@ package co.com.ceiba.estacionamiento.utilities.exceptions;
  * 
  * @author roger.cordoba
  */
-public class CreateVehicleException extends Exception {
+public class CreateVehicleException extends AnExceptionHandler {
 
 	/**
 	 * 

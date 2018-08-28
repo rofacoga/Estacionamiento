@@ -3,6 +3,7 @@ package co.com.ceiba.estacionamiento.service.services;
 import java.util.List;
 
 import co.com.ceiba.estacionamiento.service.dtos.VehicleDto;
+import co.com.ceiba.estacionamiento.utilities.exceptions.AnExceptionHandler;
 
 /**
  * 
@@ -19,8 +20,9 @@ public interface VehicleServiceInterface {
 	 * 
 	 * @param vehicle
 	 * @return
+	 * @throws AnExceptionHandler 
 	 */
-	public VehicleDto saveVehicle( VehicleDto vehicle );
+	public VehicleDto saveVehicle( VehicleDto vehicle ) throws AnExceptionHandler;
 
 	/**
 	 * 

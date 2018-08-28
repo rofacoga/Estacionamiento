@@ -14,6 +14,8 @@ import co.com.ceiba.estacionamiento.service.dtos.VehicleDto;
 import co.com.ceiba.estacionamiento.service.services.VehicleServiceInterface;
 import co.com.ceiba.estacionamiento.utilities.Constants;
 import co.com.ceiba.estacionamiento.utilities.VehicleTypeEnum;
+import co.com.ceiba.estacionamiento.utilities.exceptions.AnExceptionHandler;
+import co.com.ceiba.estacionamiento.utilities.exceptions.CreateVehicleException;
 
 /**
  * 
@@ -46,12 +48,18 @@ public class VehicleService implements VehicleServiceInterface {
 	}
 
 	@Override
-	public VehicleDto saveVehicle(VehicleDto vehicle) {
+	public VehicleDto saveVehicle(VehicleDto vehicle) throws AnExceptionHandler {
 		if (vehicle == null) {
 			return new VehicleDto();
 		}
 
 		if (vehicle.getId() == null) {
+			Optional<Vehicle> vehicleOpt = this.repository.findByRegistrationActiveAndPlateIgnoreCase(true,
+					vehicle.getPlate().trim());
+			if (vehicleOpt.isPresent()) {
+				throw new CreateVehicleException(Constants.MESSAGE_ERROR_CREATE_VEHICLE_PLATE_DUPLICATED);
+			}
+
 			if (vehicle.getType() == VehicleTypeEnum.MOTORCYCLE) {
 				vehicle.setCylinderGreaterThan500((vehicle.getCylinder() == null) ? vehicle.getCylinderGreaterThan500()
 						: (vehicle.getCylinder() > Constants.CYLINDER_MAX_MOTOCYCLES));

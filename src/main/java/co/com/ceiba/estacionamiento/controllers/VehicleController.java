@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.com.ceiba.estacionamiento.service.dtos.VehicleDto;
-import co.com.ceiba.estacionamiento.service.services.impl.VehicleService;
+import co.com.ceiba.estacionamiento.service.services.VehicleServiceInterface;
 import co.com.ceiba.estacionamiento.utilities.VehicleTypeEnum;
+import co.com.ceiba.estacionamiento.utilities.exceptions.AnExceptionHandler;
 
 /**
  * 
@@ -20,20 +21,20 @@ import co.com.ceiba.estacionamiento.utilities.VehicleTypeEnum;
 @RequestMapping("vehicle")
 public class VehicleController {
 	@Autowired
-	private VehicleService vehicleService;
+	private VehicleServiceInterface vehicleService;
 
 	@RequestMapping("/allVehicles")
-	public ResponseEntity<Object> getVehicles() {
+	public ResponseEntity<Object> getAllVehicles() {
 		return new ResponseEntity<>(this.vehicleService.getAllVehicles(), HttpStatus.OK);
 	}
 
 	@RequestMapping("/allTypesVehicles")
-	public ResponseEntity<VehicleTypeEnum[]> getPeople() {
+	public ResponseEntity<VehicleTypeEnum[]> getAllTypesVehicles() {
 		return new ResponseEntity<>(VehicleTypeEnum.values(), HttpStatus.OK);
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/createVehicle")
-	public ResponseEntity<Object> createVehicle(@RequestBody VehicleDto vehicle) {
+	@RequestMapping(method = RequestMethod.POST, value = "/saveVehicle")
+	public ResponseEntity<Object> saveVehicle(@RequestBody VehicleDto vehicle) throws AnExceptionHandler {
 		return new ResponseEntity<>(this.vehicleService.saveVehicle(vehicle), HttpStatus.OK);
 	}
 }
