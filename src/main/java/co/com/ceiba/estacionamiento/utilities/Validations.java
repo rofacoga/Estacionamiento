@@ -27,15 +27,15 @@ public final class Validations {
 	/**
 	 * 
 	 * @param calendar
-	 * @param          dayCalendarToEvaluate, possible options are: Calendar.SUNDAY,
-	 *                 Calendar.MONDAY, etc.
+	 * @param dayCalendarToEvaluate, possible options are: Calendar.SUNDAY,
+	 * 			Calendar.MONDAY, etc.
 	 * @return
 	 * @throws DayToEvaluateInvalidException
 	 */
 	public static Boolean isTheCalendarDayTheDayOfTheWeek(Calendar calendar, int dayCalendarToEvaluate)
 			throws DayToEvaluateInvalidException {
 		if (dayCalendarToEvaluate < 1 || dayCalendarToEvaluate > 7) {
-			throw new DayToEvaluateInvalidException("It's not a valid day to evaluate!");
+			throw new DayToEvaluateInvalidException(Constants.MESSAGE_ERROR_DAY_NOT_VALID);
 		}
 		return (calendar.get(Calendar.DAY_OF_WEEK) == dayCalendarToEvaluate);
 	}

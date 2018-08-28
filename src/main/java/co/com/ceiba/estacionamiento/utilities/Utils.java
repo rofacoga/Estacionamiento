@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Calendar;
 
-public class Utils {
+public final class Utils {
 
 	private Utils() {
 		throw new IllegalStateException("Utility class");
@@ -16,19 +16,17 @@ public class Utils {
 	 * @param costHourParking
 	 * @param totalMinutesParking
 	 * 
-	 * @return {@link BigInteger}
-	 * 			[0], Set the total cost
-	 * 			[1], Set the total days
-	 * 			[2], Set the total hours
+	 * @return {@link BigInteger} [0], Set the total cost [1], Set the total days
+	 *         [2], Set the total hours
 	 */
 	public static BigInteger[] calculateTotalCostParking(Double costDayParking, Double costHourParking,
 			Double totalMinutesParking) {
-		BigInteger[] res = new BigInteger[3]; 
+		BigInteger[] res = new BigInteger[3];
 		BigInteger totalCostDays = BigInteger.ZERO;
 		BigInteger totalCostHours = BigInteger.ZERO;
 		BigDecimal hoursToCollect = BigDecimal.ZERO;
 
-		BigDecimal days = BigDecimal.valueOf(totalMinutesParking/Constants.HOURS_OF_THE_DAY);
+		BigDecimal days = BigDecimal.valueOf(totalMinutesParking / Constants.HOURS_OF_THE_DAY);
 		Long integerPart = days.longValue();
 		BigDecimal decimalPart = days.remainder(BigDecimal.ONE);
 
@@ -51,8 +49,8 @@ public class Utils {
 			integerPart++;
 		}
 
-		totalCostDays 	= BigInteger.valueOf(integerPart).multiply(BigDecimal.valueOf(costDayParking).toBigInteger());
-		totalCostHours 	= hoursToCollect.multiply(BigDecimal.valueOf(costHourParking)).toBigInteger();
+		totalCostDays = BigInteger.valueOf(integerPart).multiply(BigDecimal.valueOf(costDayParking).toBigInteger());
+		totalCostHours = hoursToCollect.multiply(BigDecimal.valueOf(costHourParking)).toBigInteger();
 
 		// Set the total cost
 		res[0] = totalCostDays.add(totalCostHours);
@@ -72,7 +70,7 @@ public class Utils {
 	 */
 	public static Double calculateTotalHoursParking(Calendar ini, Calendar end) {
 		return (calculateMinutesBetweenTwoCalendar(ini, end) / Constants.MINUTES_OF_A_HOUR);
-		
+
 	}
 
 	/**
@@ -94,9 +92,9 @@ public class Utils {
 	public static Double calculateMinutesBetweenTwoCalendar(Calendar ini, Calendar end) {
 		long milsecs1 = ini.getTimeInMillis();
 		long milsecs2 = end.getTimeInMillis();
-		long diff 	= milsecs2 - milsecs1;
-		long dhours = diff / Constants.MILLISECONDS_OF_A_MINUTE;
+		long diff = milsecs2 - milsecs1;
+		long dMinutes = diff / Constants.MILLISECONDS_OF_A_MINUTE;
 
-		return (double) dhours;
+		return (double) dMinutes;
 	}
 }

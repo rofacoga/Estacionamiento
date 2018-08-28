@@ -38,8 +38,9 @@ public class ParkingRecordService implements ParkingRecordServiceInterface {
 	private ParkingRecordRepository repository;
 
 	@Override
-	public ParkingRecordDto saveCheckIn(ParkingRecordDto record) throws DayToEvaluateInvalidException,
-			ThePlateStartWithTheLetterException, ThePlateIsAlreadyRegisteredException, ParkingExceedsTheAllowedCapacityException {
+	public ParkingRecordDto saveCheckIn(ParkingRecordDto record)
+			throws DayToEvaluateInvalidException, ThePlateStartWithTheLetterException,
+			ThePlateIsAlreadyRegisteredException, ParkingExceedsTheAllowedCapacityException {
 
 		this.validateCheckInRecord(record);
 
@@ -137,17 +138,17 @@ public class ParkingRecordService implements ParkingRecordServiceInterface {
 	 * @throws DayToEvaluateInvalidException
 	 * @throws ThePlateStartWithTheLetterException
 	 * @throws ThePlateIsAlreadyRegisteredException
-	 * @throws ParkingExceedsTheAllowedCapacityException 
+	 * @throws ParkingExceedsTheAllowedCapacityException
 	 */
-	private void validateCheckInRecord(ParkingRecordDto record) throws DayToEvaluateInvalidException,
-			ThePlateStartWithTheLetterException, ThePlateIsAlreadyRegisteredException, ParkingExceedsTheAllowedCapacityException {
+	private void validateCheckInRecord(ParkingRecordDto record)
+			throws DayToEvaluateInvalidException, ThePlateStartWithTheLetterException,
+			ThePlateIsAlreadyRegisteredException, ParkingExceedsTheAllowedCapacityException {
 
 		if (!(Validations.doesThePlateStartWithTheLetter('a', record.getVehicle().getPlate())
 				&& (Validations.isTheCalendarDayTheDayOfTheWeek(record.getCheckIn(), Calendar.SUNDAY)
 						|| Validations.isTheCalendarDayTheDayOfTheWeek(record.getCheckIn(), Calendar.MONDAY)))) {
 
-			throw new ThePlateStartWithTheLetterException(
-					"The license plate of the vehicle begins with the letter A, and can only enter the parking lot on Sundays and Mondays!");
+			throw new ThePlateStartWithTheLetterException(Constants.MESSAGE_ERROR_CHECK_IN_PLATE_INVALID);
 		}
 
 		int amountAtTheTime = (int) this.repository.countByRegistrationActiveAndVehicleTypeAndCheckOutIsNull(true,
@@ -156,7 +157,8 @@ public class ParkingRecordService implements ParkingRecordServiceInterface {
 				? Constants.CANT_MAX_MOTORCYCLES
 				: Constants.CANT_MAX_CARS;
 		if (amountAtTheTime >= allowedAmount) {
-			throw new ParkingExceedsTheAllowedCapacityException("The parking lot is full! The "+allowedAmount+" quotas have already been occupied");
+			throw new ParkingExceedsTheAllowedCapacityException(Constants.MESSAGE_ERROR_CHECK_IN_FULL_CAPACITY_1
+					+ allowedAmount + Constants.MESSAGE_ERROR_CHECK_IN_FULL_CAPACITY_2);
 		}
 
 		Optional<ParkingRecord> recordOpt = this.repository
@@ -164,8 +166,7 @@ public class ParkingRecordService implements ParkingRecordServiceInterface {
 						record.getVehicle().getPlate());
 
 		if (recordOpt.isPresent()) {
-			throw new ThePlateIsAlreadyRegisteredException(
-					"The license plate of the vehicle is already registered in the parking lot!");
+			throw new ThePlateIsAlreadyRegisteredException(Constants.MESSAGE_ERROR_CHECK_IN_PLATE_REGISTERED);
 		}
 
 	}
@@ -183,19 +184,19 @@ public class ParkingRecordService implements ParkingRecordServiceInterface {
 			DateCheckInIsAfterThanDateCheckOutException, RegistrationOfParkedVehicleNotFoundException {
 
 		if (record.getCheckOut() == null) {
-			throw new RequiredFieldIsEmptyException("The Calendar Check Out field is Empty!");
+			throw new RequiredFieldIsEmptyException(Constants.MESSAGE_ERROR_CHECK_OUT_FIELD_CALENDAR_NULL);
 		}
 
 		if (record.getCheckOut().before(record.getCheckIn())) {
 			throw new DateCheckInIsAfterThanDateCheckOutException(
-					"The Calendar Out Date is before of Calendar In Date!");
+					Constants.MESSAGE_ERROR_CHECK_OUT_CALENDAR_IS_BEFORE);
 		}
 
 		ParkingRecordDto recordDto = this.searchByPlate(record.getVehicle().getPlate());
 
 		if (recordDto.getId() == null) {
-			throw new RegistrationOfParkedVehicleNotFoundException("The vehicle with license plate: "
-					+ record.getVehicle().getPlate().toUpperCase() + ", not found in the parking lot!");
+			throw new RegistrationOfParkedVehicleNotFoundException(Constants.MESSAGE_ERROR_CHECK_OUT_VEHICLE_NOT_FOUND_1
+					+ record.getVehicle().getPlate().toUpperCase() + Constants.MESSAGE_ERROR_CHECK_OUT_VEHICLE_NOT_FOUND_2);
 		}
 
 	}
