@@ -1,6 +1,7 @@
 package co.com.ceiba.estacionamiento.persistence.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
@@ -33,5 +34,5 @@ public interface VehicleRepository extends CrudRepository<Vehicle, Long> {
 	 * @param plate
 	 * @return
 	 */
-	public Vehicle findByRegistrationActiveAndPlate(Boolean isActive, String plate);
+	public Optional<Vehicle> findByRegistrationActiveAndPlateIgnoreCase(Boolean isActive, String plate);
 }

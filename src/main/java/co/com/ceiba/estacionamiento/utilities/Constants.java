@@ -1,22 +1,28 @@
 package co.com.ceiba.estacionamiento.utilities;
 
 public final class Constants {
+	public static final String NAME_CAR 		= "CARRO";
+	public static final String NAME_MOTORCYCLE 	= "MOTOCICLETA";
 	/**
 	 * minimum hours for the day
 	 */
 	public static final Integer HOURS_MIN_FOR_THE_DAY 	= 9;
 	public static final Integer HOURS_OF_THE_DAY 		= 24;
 
-	public static final Integer CANT_MAX_VEHICLES 	= 20;
-	public static final Double 	COST_HOUR_VEHICLES 	= 1000.0;
-	public static final Double 	COST_DAY_VEHICLES 	= 8000.0;
+	public static final Integer CANT_MAX_CARS 	= 20;
+	public static final Double 	COST_HOUR_CARS 	= 1000.0;
+	public static final Double 	COST_DAY_CARS 	= 8000.0;
 
 	public static final Integer CANT_MAX_MOTORCYCLES 		= 5;
+	public static final Integer CYLINDER_MAX_MOTOCYCLES 	= 500;
 	public static final Double 	COST_HOUR_MOTORCYCLES 		= 500.0;
 	public static final Double 	COST_DAY_MOTORCYCLES 		= 4000.0;
 	public static final Double 	COST_SURCHARGE_MOTORCYCLES 	= 2000.0;
-	public static final Integer CYLINDER_MAX_MOTOCYCLES 	= 500;
 
+	/**
+	 * (60 * 60 * 1000)
+	 */
+	public static final Integer MILLISECONDS_OF_A_HOUR 		= 3600000;
 	/**
 	 * (60 * 1000)
 	 */

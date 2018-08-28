@@ -1,10 +1,12 @@
 package co.com.ceiba.estacionamiento.persistence.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
 import co.com.ceiba.estacionamiento.persistence.entities.ParkingRecord;
+import co.com.ceiba.estacionamiento.utilities.VehicleTypeEnum;
 
 /**
  * 
@@ -41,5 +43,14 @@ public interface ParkingRecordRepository extends CrudRepository<ParkingRecord, L
 	 * @param plate
 	 * @return
 	 */
-	public ParkingRecord findByRegistrationActiveAndVehiclePlateAndCheckOutIsNull(Boolean isActive, String plate);
+	public Optional<ParkingRecord> findByRegistrationActiveAndVehiclePlateIgnoreCaseAndCheckOutIsNull(Boolean isActive, String plate);
+
+	/**
+	 * 
+	 * 
+	 * @param isActive
+	 * @param type
+	 * @return
+	 */
+	public long countByRegistrationActiveAndVehicleTypeAndCheckOutIsNull(Boolean isActive, VehicleTypeEnum type);
 }

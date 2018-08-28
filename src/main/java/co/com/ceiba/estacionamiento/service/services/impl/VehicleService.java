@@ -2,9 +2,11 @@ package co.com.ceiba.estacionamiento.service.services.impl;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.com.ceiba.estacionamiento.persistence.entities.Vehicle;
 import co.com.ceiba.estacionamiento.persistence.repositories.VehicleRepository;
@@ -16,6 +18,7 @@ import co.com.ceiba.estacionamiento.service.services.VehicleServiceInterface;
  * @author roger.cordoba
  */
 @Service
+@Transactional
 public class VehicleService implements VehicleServiceInterface {
 
 	@Autowired
@@ -53,7 +56,12 @@ public class VehicleService implements VehicleServiceInterface {
 
 	@Override
 	public VehicleDto searchByPlate(String plate) {
-		return new VehicleDto().entityToDto(this.repository.findByRegistrationActiveAndPlate(true, plate));
+		Optional<Vehicle> vehicle = this.repository.findByRegistrationActiveAndPlateIgnoreCase(true, plate.toLowerCase().trim());
+		if (vehicle.isPresent()) {
+			return new VehicleDto().entityToDto(vehicle.get());
+		} else {
+			return new VehicleDto();
+		}
 	}
 
 	@Override

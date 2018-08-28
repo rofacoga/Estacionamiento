@@ -11,7 +11,7 @@ import co.com.ceiba.estacionamiento.persistence.entities.Keeper;
  * @author roger.cordoba
  */
 public class KeeperDto {
-	private String upin;
+	private String dni;
 	private String firstName;
 	private String secondName;
 	private String mobileNumber;
@@ -33,7 +33,7 @@ public class KeeperDto {
 	/**
 	 * Constructor with all params
 	 * 
-	 * @param upin
+	 * @param dni
 	 * @param firstName
 	 * @param secondName
 	 * @param mobileNumber
@@ -44,10 +44,10 @@ public class KeeperDto {
 	 * @param registrationActive
 	 * @param registrationDate
 	 */
-	public KeeperDto(String upin, String firstName, String secondName, String mobileNumber, String email,
+	public KeeperDto(String dni, String firstName, String secondName, String mobileNumber, String email,
 			String username, String password, Long id, Boolean registrationActive, Calendar registrationDate) {
 		super();
-		this.upin = upin;
+		this.dni = dni;
 		this.firstName = firstName;
 		this.secondName = secondName;
 		this.mobileNumber = mobileNumber;
@@ -65,7 +65,7 @@ public class KeeperDto {
 	 * @return this object in entity form
 	 */
 	public Keeper dtoToEntity() {
-		return new Keeper(this.upin, this.firstName, this.secondName, this.mobileNumber, this.email, this.username,
+		return new Keeper(this.dni, this.firstName, this.secondName, this.mobileNumber, this.email, this.username,
 				this.password, this.id, this.registrationActive, this.registrationDate);
 	}
 
@@ -76,7 +76,7 @@ public class KeeperDto {
 	 * @return dto object converted
 	 */
 	public KeeperDto entityToDto(Keeper type) {
-		return new KeeperDto(type.getUpin(), type.getFirstName(), type.getSecondName(), type.getMobileNumber(),
+		return new KeeperDto(type.getDni(), type.getFirstName(), type.getSecondName(), type.getMobileNumber(),
 				type.getEmail(), type.getUsername(), type.getPassword(), type.getId(), type.getRegistrationActive(),
 				type.getRegistrationDate());
 	}
@@ -96,17 +96,17 @@ public class KeeperDto {
 	}
 
 	/**
-	 * @return the upin
+	 * @return the dni
 	 */
-	public String getUpin() {
-		return upin;
+	public String getDni() {
+		return dni;
 	}
 
 	/**
-	 * @param upin the upin to set
+	 * @param dni the dni to set
 	 */
-	public void setUpin(String upin) {
-		this.upin = upin;
+	public void setDni(String dni) {
+		this.dni = dni;
 	}
 
 	/**

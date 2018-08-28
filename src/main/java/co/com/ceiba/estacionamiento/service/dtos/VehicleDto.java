@@ -5,19 +5,35 @@ import java.util.Calendar;
 import java.util.List;
 
 import co.com.ceiba.estacionamiento.persistence.entities.Vehicle;
+import co.com.ceiba.estacionamiento.utilities.Constants;
+import co.com.ceiba.estacionamiento.utilities.VehicleTypeEnum;
 
 /**
  * 
  * @author roger.cordoba
  */
 public class VehicleDto {
-	private String 	plate;
-	private Integer cylinder;
-	private Long 	type;
+	private String 				plate;
+	private Integer 			cylinder;
+	private Boolean 			cylinderGreaterThan500;
+	private VehicleTypeEnum 	type;
 
 	private Long id;
 	private Boolean registrationActive;
 	private Calendar registrationDate;
+
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean isCylinderGreaterThan500() {
+		if (cylinder==null) {
+			return cylinderGreaterThan500;
+			
+		} else {
+			return cylinder>=Constants.CYLINDER_MAX_MOTOCYCLES;
+		}
+	}
 	
 
 	/**
@@ -37,7 +53,7 @@ public class VehicleDto {
 	 * @param registrationActive
 	 * @param registrationDate
 	 */
-	public VehicleDto(String plate, Integer cylinder, Long type, Long id, Boolean registrationActive, Calendar registrationDate) {
+	public VehicleDto(String plate, Integer cylinder, VehicleTypeEnum type, Long id, Boolean registrationActive, Calendar registrationDate) {
 		super();
 		this.plate = plate;
 		this.cylinder = cylinder;
@@ -63,7 +79,7 @@ public class VehicleDto {
 	 * @return dto object converted
 	 */
 	public VehicleDto entityToDto(Vehicle vehicle) {
-		return new VehicleDto(vehicle.getPlate(), vehicle.getCylinder(), vehicle.getType().getId(), vehicle.getId(), vehicle.getRegistrationActive(), vehicle.getRegistrationDate());
+		return new VehicleDto(vehicle.getPlate(), vehicle.getCylinder(), vehicle.getType(), vehicle.getId(), vehicle.getRegistrationActive(), vehicle.getRegistrationDate());
 	}
 
 	/**
@@ -109,16 +125,30 @@ public class VehicleDto {
 	}
 
 	/**
+	 * @return the cylinderGreaterThan500
+	 */
+	public Boolean getCylinderGreaterThan500() {
+		return cylinderGreaterThan500;
+	}
+
+	/**
+	 * @param cylinderGreaterThan500 the cylinderGreaterThan500 to set
+	 */
+	public void setCylinderGreaterThan500(Boolean cylinderGreaterThan500) {
+		this.cylinderGreaterThan500 = cylinderGreaterThan500;
+	}
+
+	/**
 	 * @return the type
 	 */
-	public Long getType() {
+	public VehicleTypeEnum getType() {
 		return type;
 	}
 
 	/**
 	 * @param type the type to set
 	 */
-	public void setType(Long type) {
+	public void setType(VehicleTypeEnum type) {
 		this.type = type;
 	}
 

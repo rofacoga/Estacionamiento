@@ -4,15 +4,13 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import co.com.ceiba.estacionamiento.utilities.VehicleTypeEnum;
 
 /**
  * 
@@ -28,9 +26,8 @@ public class Vehicle {
 	@Column(name = "CYLINDER", nullable = true)
 	private Integer cylinder;
 
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="TYPE", foreignKey=@ForeignKey(name="FK_VEHICLE_VEHICLETYPE_TYPE"), nullable=false)
-	private VehicleType type;
+	@Column(name = "VEHICLETYPE", nullable = false)
+	private VehicleTypeEnum type;
 
 
 	@Id
@@ -46,6 +43,15 @@ public class Vehicle {
 	private Calendar registrationDate;
 
 	/**
+	 *Constructor without params
+	 */
+	public Vehicle() {
+		super();
+	}
+
+	/**
+	 * Constructor with all params
+	 * 
 	 * @param plate
 	 * @param cylinder
 	 * @param type
@@ -53,13 +59,12 @@ public class Vehicle {
 	 * @param registrationActive
 	 * @param registrationDate
 	 */
-	public Vehicle(String plate, Integer cylinder, Long type, Long id, Boolean registrationActive,
+	public Vehicle(String plate, Integer cylinder, VehicleTypeEnum type, Long id, Boolean registrationActive,
 			Calendar registrationDate) {
 		super();
 		this.plate = plate;
 		this.cylinder = cylinder;
-		this.type = new VehicleType();
-		this.type.setId(type);
+		this.type = type;
 		this.id = id;
 		this.registrationActive = registrationActive;
 		this.registrationDate = registrationDate;
@@ -96,14 +101,14 @@ public class Vehicle {
 	/**
 	 * @return the type
 	 */
-	public VehicleType getType() {
+	public VehicleTypeEnum getType() {
 		return type;
 	}
 
 	/**
 	 * @param type the type to set
 	 */
-	public void setType(VehicleType type) {
+	public void setType(VehicleTypeEnum type) {
 		this.type = type;
 	}
 

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.com.ceiba.estacionamiento.persistence.entities.Keeper;
 import co.com.ceiba.estacionamiento.persistence.repositories.KeeperRepository;
@@ -16,6 +17,7 @@ import co.com.ceiba.estacionamiento.service.services.KeeperServiceInterface;
  * @author roger.cordoba
  */
 @Service
+@Transactional
 public class KeeperService implements KeeperServiceInterface {
 
 	@Autowired

@@ -20,13 +20,13 @@ public class Keeper {
 	/**
 	 * attribute for Unique Personal Identification Number
 	 */
-	@Column(name = "UPIN", nullable = false)
-	private String upin;
+	@Column(name = "DNI", nullable = false)
+	private String dni;
 
 	@Column(name = "FIRSTNAME", nullable = false)
 	private String firstName;
 
-	@Column(name = "SECONDNAME", nullable = false)
+	@Column(name = "LASTNAME", nullable = false)
 	private String secondName;
 
 	@Column(name = "MOBILENUMBER", nullable = true)
@@ -62,9 +62,17 @@ public class Keeper {
 	}
 
 	/**
+	 * Constructor with id as param
+	 */
+	public Keeper(Long id) {
+		super();
+		this.id=id;
+	}
+
+	/**
 	 * Constructor with all params
 	 * 
-	 * @param upin
+	 * @param dni
 	 * @param firstName
 	 * @param secondName
 	 * @param mobileNumber
@@ -75,10 +83,10 @@ public class Keeper {
 	 * @param registrationActive
 	 * @param registrationDate
 	 */
-	public Keeper(String upin, String firstName, String secondName, String mobileNumber, String email, String username,
+	public Keeper(String dni, String firstName, String secondName, String mobileNumber, String email, String username,
 			String password, Long id, Boolean registrationActive, Calendar registrationDate) {
 		super();
-		this.upin = upin;
+		this.dni = dni;
 		this.firstName = firstName;
 		this.secondName = secondName;
 		this.mobileNumber = mobileNumber;
@@ -91,17 +99,17 @@ public class Keeper {
 	}
 
 	/**
-	 * @return the upin
+	 * @return the dni
 	 */
-	public String getUpin() {
-		return upin;
+	public String getDni() {
+		return dni;
 	}
 
 	/**
-	 * @param upin the upin to set
+	 * @param dni the dni to set
 	 */
-	public void setUpin(String upin) {
-		this.upin = upin;
+	public void setDni(String dni) {
+		this.dni = dni;
 	}
 
 	/**

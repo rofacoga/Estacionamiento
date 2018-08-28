@@ -10,20 +10,21 @@ public class UtilsTest {
 
 	@Test
 	public void testCalculateTotalCostParking() {
-		assertEquals(BigInteger.valueOf(3500), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES, 6.5));
-		assertEquals(BigInteger.valueOf(4000), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES, 23.0));
+		assertEquals(BigInteger.valueOf(500), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES,  0.93)[0]);
+		assertEquals(BigInteger.valueOf(3500), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES, 7.0)[0]);
+		assertEquals(BigInteger.valueOf(4000), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES, 23.0)[0]);
 
-		assertEquals(BigInteger.valueOf(4500), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES, 24.5));
-		assertEquals(BigInteger.valueOf(4000), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES, 24.09));
-		assertEquals(BigInteger.valueOf(6000), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES, 28.0));
-		assertEquals(BigInteger.valueOf(8000), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES, 32.0));
+		assertEquals(BigInteger.valueOf(4500), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES, 24.5)[0]);
+		assertEquals(BigInteger.valueOf(4000), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES, 24.08)[0]);
+		assertEquals(BigInteger.valueOf(6000), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES, 28.0)[0]);
+		assertEquals(BigInteger.valueOf(8000), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES, 32.0)[0]);
 
-		assertEquals(BigInteger.valueOf(8000), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES, 32.1));
-		assertEquals(BigInteger.valueOf(8000), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES, 33.0));
-		assertEquals(BigInteger.valueOf(8000), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES, 47.0));
-		assertEquals(BigInteger.valueOf(8000), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES, 48.0));
+		assertEquals(BigInteger.valueOf(8000), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES, 32.1)[0]);
+		assertEquals(BigInteger.valueOf(8000), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES, 33.0)[0]);
+		assertEquals(BigInteger.valueOf(8000), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES, 47.0)[0]);
+		assertEquals(BigInteger.valueOf(8000), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES, 48.0)[0]);
 
-		assertEquals(BigInteger.valueOf(8500), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES, 48.1));
+		assertEquals(BigInteger.valueOf(8500), Utils.calculateTotalCostParking(Constants.COST_DAY_MOTORCYCLES, Constants.COST_HOUR_MOTORCYCLES, 48.1)[0]);
 	}
 
 //	@Test

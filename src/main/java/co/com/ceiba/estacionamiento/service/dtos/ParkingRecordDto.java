@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import co.com.ceiba.estacionamiento.persistence.entities.Keeper;
 import co.com.ceiba.estacionamiento.persistence.entities.ParkingRecord;
 
 /**
@@ -12,8 +13,8 @@ import co.com.ceiba.estacionamiento.persistence.entities.ParkingRecord;
  * @author roger.cordoba
  */
 public class ParkingRecordDto {
-	private KeeperDto 	keeperIn;
-	private KeeperDto 	keeperOut;
+	private Long 		keeperIn;
+	private Long 		keeperOut;
 	private VehicleDto 	vehicle;
 	private Calendar 	checkIn;
 	private Calendar 	checkOut;
@@ -48,7 +49,7 @@ public class ParkingRecordDto {
 	 * @param registrationActive
 	 * @param registrationDate
 	 */
-	public ParkingRecordDto(KeeperDto keeperIn, KeeperDto keeperOut, VehicleDto vehicle, Calendar checkIn,
+	public ParkingRecordDto(Long keeperIn, Long keeperOut, VehicleDto vehicle, Calendar checkIn,
 			Calendar checkOut, Integer totalDays, Integer totalHours, BigInteger totalCost, Long id,
 			Boolean registrationActive, Calendar registrationDate) {
 		super();
@@ -72,8 +73,8 @@ public class ParkingRecordDto {
 	 */
 	public ParkingRecord dtoToEntity() {
 		return new ParkingRecord(
-				this.keeperIn.dtoToEntity(), 
-				this.keeperOut.dtoToEntity(), 
+				new Keeper(keeperIn), 
+				(keeperOut==null)?null:new Keeper(keeperOut), 
 				this.vehicle.dtoToEntity(), 
 				this.checkIn, this.checkOut, 
 				this.totalDays, this.totalHours, this.totalCost, 
@@ -88,8 +89,8 @@ public class ParkingRecordDto {
 	 */
 	public ParkingRecordDto entityToDto(ParkingRecord record) {
 		return new ParkingRecordDto(
-				new KeeperDto().entityToDto(record.getKeeperIn()), 
-				new KeeperDto().entityToDto(record.getKeeperOut()), 
+				new KeeperDto().entityToDto(record.getKeeperIn()).getId(), 
+				(record.getKeeperOut()==null)?null:new KeeperDto().entityToDto(record.getKeeperOut()).getId(), 
 				new VehicleDto().entityToDto(record.getVehicle()), 
 				record.getCheckIn(), record.getCheckOut(), 
 				record.getTotalDays(), record.getTotalHours(), record.getTotalCost(), 
@@ -113,28 +114,28 @@ public class ParkingRecordDto {
 	/**
 	 * @return the keeperIn
 	 */
-	public KeeperDto getKeeperIn() {
+	public Long getKeeperIn() {
 		return keeperIn;
 	}
 	/**
 	 * 
 	 * @param keeperIn the keeperIn to set
 	 */
-	public void setKeeperIn(KeeperDto keeperIn) {
+	public void setKeeperIn(Long keeperIn) {
 		this.keeperIn = keeperIn;
 	}
 
 	/**
 	 * @return the keeperOut
 	 */
-	public KeeperDto getKeeperOut() {
+	public Long getKeeperOut() {
 		return keeperOut;
 	}
 	/**
 	 * 
 	 * @param keeper the keeper to set
 	 */
-	public void setKeeperOut(KeeperDto keeperOut) {
+	public void setKeeperOut(Long keeperOut) {
 		this.keeperOut = keeperOut;
 	}
 
