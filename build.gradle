@@ -23,6 +23,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'jacoco'
 
 group = 'co.com.ceiba'
 version = '0.0.1-SNAPSHOT'
@@ -44,4 +45,18 @@ dependencies {
     // Use JUnit test framework
  	testCompile('org.springframework.boot:spring-boot-starter-test')
  	testCompile('org.mockito:mockito-core:2.7.22')
+}
+
+
+task jacoco(group: 'verification', dependsOn: jacocoTestReport) {
+
+}
+
+jacocoTestReport {
+   group = "Reporting"
+   reports {
+       xml.enabled true
+       csv.enabled false
+       html.destination file("${buildDir}/jacocoHtml")
+   }
 }
