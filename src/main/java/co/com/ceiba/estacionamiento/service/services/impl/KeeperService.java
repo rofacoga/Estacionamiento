@@ -89,7 +89,7 @@ public class KeeperService implements KeeperServiceInterface {
 
 	@Override
 	public KeeperDto login(String user, String pass) throws AnExceptionHandler {
-		if (user == null || user.trim() == "" || pass == null || pass.trim() == "") {
+		if (user == null || user.trim().equals("") || pass == null || pass.trim().equals("")) {
 			throw new IncorrectDataLoginException(Constants.MESSAGE_ERROR_LOGIN_INCORRECT_DATA);
 		}
 

@@ -136,7 +136,7 @@ public class ParkingRecordService implements ParkingRecordServiceInterface {
 
 	@Override
 	public List<ParkingRecordDto> searchAllVehiclesParkedByPlate(String plate) {
-		if (plate == null || plate.trim() == "") {
+		if (plate == null || plate.trim().equals("")) {
 			return new ArrayList<>();
 		}
 		return new ParkingRecordDto().listEntitiesToDtos(
