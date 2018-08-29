@@ -70,6 +70,24 @@ public class KeeperService implements KeeperServiceInterface {
 	}
 
 	@Override
+	public KeeperDto deleteKeeperById(Long id) {
+		if (id==null) {
+			return new KeeperDto();
+		}
+
+		KeeperDto keeper = this.searchById(id);
+		if (keeper.getId()==null) {
+			return new KeeperDto();
+		}
+
+		keeper.setRegistrationActive(false);
+
+		Keeper entity = this.repository.save(keeper.dtoToEntity());
+
+		return keeper.entityToDto(entity);
+	}
+
+	@Override
 	public KeeperDto login(String user, String pass) throws AnExceptionHandler {
 		if (user == null || user.trim() == "" || pass == null || pass.trim() == "") {
 			throw new IncorrectDataLoginException(Constants.MESSAGE_ERROR_LOGIN_INCORRECT_DATA);

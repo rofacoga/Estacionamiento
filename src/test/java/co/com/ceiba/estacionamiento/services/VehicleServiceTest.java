@@ -28,22 +28,22 @@ public class VehicleServiceTest {
 	@Autowired
 	VehicleServiceInterface service;
 
-	private Long idType;
+	private Long idObject;
 
 	@Test
 	@Rollback
-	public void testSaveVehicle() throws AnExceptionHandler {
-		VehicleDto vehicle = new VehicleDto();
-		vehicle.setPlate("abc123");
-		vehicle.setType(VehicleTypeEnum.MOTORCYCLE);
-		vehicle.setCylinder(600);
-		vehicle=this.service.saveVehicle(vehicle);
+	public void testSave() throws AnExceptionHandler {
+		VehicleDto object = new VehicleDto();
+		object.setPlate("abc123");
+		object.setType(VehicleTypeEnum.MOTORCYCLE);
+		object.setCylinder(600);
+		object=this.service.saveVehicle(object);
 
-		assertNotNull("Verify that object have an id", vehicle.getId());
-		this.idType = vehicle.getId();
+		assertNotNull("Verify that object have an id", object.getId());
+		this.idObject = object.getId();
 
-		vehicle=this.service.saveVehicle(null);
-		assertNull("Verify that object have an id", vehicle.getId());
+		object=this.service.saveVehicle(null);
+		assertNull("Verify that object have an id", object.getId());
 	}
 
 	@Test
@@ -52,27 +52,27 @@ public class VehicleServiceTest {
 		VehicleDto type = this.service.searchByPlate("abc123");
 		assertNull("Verify that object not have an id", type.getId());
 
-		this.testSaveVehicle();
+		this.testSave();
 		type = this.service.searchByPlate("abc123");
 		assertNotNull("Verify that object have an id", type.getId());
 	}
 
 	@Test
 	@Rollback
-	public void testGetAllVehicle() throws AnExceptionHandler {
+	public void testGetAll() throws AnExceptionHandler {
 		int size = ((Collection<?>) this.service.getAllVehicles()).size();
 		assertEquals("Verify that list not have elements", 0, size);
 
-		this.testSaveVehicle();
+		this.testSave();
 		size = ((Collection<?>) this.service.getAllVehicles()).size();
 		assertTrue("Verify that the list has some element", size > 0);
 	}
 
 	@Test
 	@Rollback
-	public void testDeleteVehicle() throws AnExceptionHandler {
-		this.testSaveVehicle();
-		VehicleDto type = this.service.searchById(this.idType);
+	public void testDelete() throws AnExceptionHandler {
+		this.testSave();
+		VehicleDto type = this.service.searchById(this.idObject);
 
 		this.service.deleteVehicle(type);
 		int size = ((Collection<?>) this.service.getAllVehicles()).size();
@@ -88,8 +88,8 @@ public class VehicleServiceTest {
 		type = this.service.searchById(Long.valueOf(0));
 		assertNull("Verify that object have an id", type.getId());
 
-		this.testSaveVehicle();
-		type = this.service.searchById(this.idType);
+		this.testSave();
+		type = this.service.searchById(this.idObject);
 		assertNotNull("Verify that object have an id", type.getId());
 	}
 
@@ -97,8 +97,8 @@ public class VehicleServiceTest {
 	@Rollback
 	public void testValidationPlateDuplicated() {
 		try {
-			this.testSaveVehicle();
-			this.testSaveVehicle();
+			this.testSave();
+			this.testSave();
 		} catch (AnExceptionHandler e) {
 			assertEquals(Constants.MESSAGE_ERROR_CREATE_VEHICLE_PLATE_DUPLICATED, e.getMessage());
 		}
@@ -110,7 +110,7 @@ public class VehicleServiceTest {
 		int size = ((Collection<?>) this.service.searchAllByPlate("a")).size();
 		assertEquals("Verify that list not have elements", 0, size);
 
-		this.testSaveVehicle();
+		this.testSave();
 		size = ((Collection<?>) this.service.searchAllByPlate("a")).size();
 		assertTrue("Verify that the list has some element", size > 0);
 		

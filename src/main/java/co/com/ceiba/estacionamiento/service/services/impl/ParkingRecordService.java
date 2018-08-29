@@ -2,6 +2,7 @@ package co.com.ceiba.estacionamiento.service.services.impl;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -44,6 +45,9 @@ public class ParkingRecordService implements ParkingRecordServiceInterface {
 
 	@Override
 	public ParkingRecordDto saveCheckIn(ParkingRecordDto record) throws AnExceptionHandler {
+		if (record == null) {
+			return new ParkingRecordDto();
+		}
 
 		VehicleDto vehicle = this.vehicleService.searchByPlate(record.getVehicle().getPlate());
 
@@ -67,6 +71,9 @@ public class ParkingRecordService implements ParkingRecordServiceInterface {
 
 	@Override
 	public ParkingRecordDto saveCheckOut(ParkingRecordDto record) throws AnExceptionHandler {
+		if (record == null || record.getId() == null) {
+			return new ParkingRecordDto();
+		}
 
 		Calendar checkOut = record.getCheckOut();
 		Long keeperOut = record.getKeeperOut();
@@ -102,6 +109,10 @@ public class ParkingRecordService implements ParkingRecordServiceInterface {
 
 	@Override
 	public ParkingRecordDto searchById(Long id) {
+		if (id == null) {
+			return new ParkingRecordDto();
+		}
+
 		Optional<ParkingRecord> record = this.repository.findById(id);
 
 		if (record.isPresent()) {
@@ -125,19 +136,22 @@ public class ParkingRecordService implements ParkingRecordServiceInterface {
 
 	@Override
 	public List<ParkingRecordDto> searchAllVehiclesParkedByPlate(String plate) {
+		if (plate == null || plate.trim() == "") {
+			return new ArrayList<>();
+		}
 		return new ParkingRecordDto().listEntitiesToDtos(
 				this.repository.findByRegistrationActiveAndVehiclePlateStartingWithAndCheckOutIsNull(true, plate));
-	}
-
-	@Override
-	public Iterable<ParkingRecordDto> getAllRecords() {
-		return new ParkingRecordDto().listEntitiesToDtos(this.repository.findByRegistrationActive(true));
 	}
 
 	@Override
 	public Iterable<ParkingRecordDto> getAllParkedVehicles() {
 		return new ParkingRecordDto()
 				.listEntitiesToDtos(this.repository.findByRegistrationActiveAndCheckOutIsNull(true));
+	}
+
+	@Override
+	public Iterable<ParkingRecordDto> getAllRecords() {
+		return new ParkingRecordDto().listEntitiesToDtos(this.repository.findByRegistrationActive(true));
 	}
 
 	/**
