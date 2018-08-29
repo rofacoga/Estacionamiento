@@ -13,10 +13,10 @@ import co.com.ceiba.estacionamiento.utilities.VehicleTypeEnum;
  * @author roger.cordoba
  */
 public class VehicleDto {
-	private String 				plate;
-	private Integer 			cylinder;
-	private Boolean 			cylinderGreaterThan500;
-	private VehicleTypeEnum 	type;
+	private String plate;
+	private Integer cylinder;
+	private Boolean cylinderGreaterThan500;
+	private VehicleTypeEnum type;
 
 	private Long id;
 	private Boolean registrationActive;
@@ -27,40 +27,8 @@ public class VehicleDto {
 	 * @return
 	 */
 	public boolean isCylinderGreaterThan500() {
-		if (cylinder==null) {
-			return cylinderGreaterThan500;
-			
-		} else {
-			return cylinder>=Constants.CYLINDER_MAX_MOTOCYCLES;
-		}
-	}
-	
-
-	/**
-	 * Constructor without params
-	 */
-	public VehicleDto() {
-		super();
-	}
-
-	/**
-	 * Constructor with all params
-	 * 
-	 * @param plate
-	 * @param cylinder
-	 * @param type
-	 * @param id
-	 * @param registrationActive
-	 * @param registrationDate
-	 */
-	public VehicleDto(String plate, Integer cylinder, VehicleTypeEnum type, Long id, Boolean registrationActive, Calendar registrationDate) {
-		super();
-		this.plate = plate;
-		this.cylinder = cylinder;
-		this.type = type;
-		this.id = id;
-		this.registrationActive = registrationActive;
-		this.registrationDate = registrationDate;
+		return (this.cylinder == null) ? this.cylinderGreaterThan500
+				: (this.cylinder >= Constants.CYLINDER_MAX_MOTOCYCLES);
 	}
 
 	/**
@@ -69,7 +37,15 @@ public class VehicleDto {
 	 * @return this object in entity form
 	 */
 	public Vehicle dtoToEntity() {
-		return new Vehicle(this.plate, this.cylinder, this.type, this.id, this.registrationActive, this.registrationDate);
+		Vehicle entity = new Vehicle();
+		entity.setPlate(this.plate);
+		entity.setCylinder(this.cylinder);
+		entity.setType(this.type);
+		entity.setId(this.id);
+		entity.setRegistrationActive(this.registrationActive);
+		entity.setRegistrationDate(this.registrationDate);
+
+		return entity;
 	}
 
 	/**
@@ -79,7 +55,15 @@ public class VehicleDto {
 	 * @return dto object converted
 	 */
 	public VehicleDto entityToDto(Vehicle vehicle) {
-		return new VehicleDto(vehicle.getPlate(), vehicle.getCylinder(), vehicle.getType(), vehicle.getId(), vehicle.getRegistrationActive(), vehicle.getRegistrationDate());
+		VehicleDto dto = new VehicleDto();
+		dto.setPlate(vehicle.getPlate());
+		dto.setCylinder(vehicle.getCylinder());
+		dto.setType(vehicle.getType());
+		dto.setId(vehicle.getId());
+		dto.setRegistrationActive(vehicle.getRegistrationActive());
+		dto.setRegistrationDate(vehicle.getRegistrationDate());
+
+		return dto;
 	}
 
 	/**
@@ -90,7 +74,7 @@ public class VehicleDto {
 	 */
 	public List<VehicleDto> listEntitiesToDtos(List<Vehicle> lista) {
 		List<VehicleDto> list = new ArrayList<>();
-		for (Vehicle v: lista) {
+		for (Vehicle v : lista) {
 			list.add(this.entityToDto(v));
 		}
 		return list;

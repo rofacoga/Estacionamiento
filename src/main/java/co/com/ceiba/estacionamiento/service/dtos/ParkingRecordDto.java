@@ -28,57 +28,25 @@ public class ParkingRecordDto {
 
 
 	/**
-	 * Constructor without params
-	 */
-	public ParkingRecordDto() {
-		super();
-	}
-
-	/**
-	 * Constructor with all params
-	 * 
-	 * @param keeperIn
-	 * @param keeperOut
-	 * @param vehicle
-	 * @param checkIn
-	 * @param checkOut
-	 * @param totalDays
-	 * @param totalHours
-	 * @param totalCost
-	 * @param id
-	 * @param registrationActive
-	 * @param registrationDate
-	 */
-	public ParkingRecordDto(Long keeperIn, Long keeperOut, VehicleDto vehicle, Calendar checkIn,
-			Calendar checkOut, Integer totalDays, Integer totalHours, BigInteger totalCost, Long id,
-			Boolean registrationActive, Calendar registrationDate) {
-		super();
-		this.keeperIn = keeperIn;
-		this.keeperOut = keeperOut;
-		this.vehicle = vehicle;
-		this.checkIn = checkIn;
-		this.checkOut = checkOut;
-		this.totalDays = totalDays;
-		this.totalHours = totalHours;
-		this.totalCost = totalCost;
-		this.id = id;
-		this.registrationActive = registrationActive;
-		this.registrationDate = registrationDate;
-	}
-
-	/**
 	 * Method that convert this dto object in entity object
 	 * 
 	 * @return this object in entity form
 	 */
 	public ParkingRecord dtoToEntity() {
-		return new ParkingRecord(
-				new Keeper(keeperIn), 
-				(keeperOut==null)?null:new Keeper(keeperOut), 
-				this.vehicle.dtoToEntity(), 
-				this.checkIn, this.checkOut, 
-				this.totalDays, this.totalHours, this.totalCost, 
-				this.id, this.registrationActive, this.registrationDate);
+		ParkingRecord entity = new ParkingRecord();
+		entity.setKeeperIn(new Keeper(this.keeperIn));
+		entity.setKeeperOut((this.keeperOut==null)?null:new Keeper(this.keeperOut));
+		entity.setVehicle(this.vehicle.dtoToEntity());
+		entity.setCheckIn(this.checkIn);
+		entity.setCheckOut(this.checkOut);
+		entity.setTotalDays(this.totalDays);
+		entity.setTotalHours(this.totalHours);
+		entity.setTotalCost(this.totalCost);
+		entity.setId(this.id);
+		entity.setRegistrationActive(this.registrationActive);
+		entity.setRegistrationDate(this.registrationDate);
+
+		return entity;
 	}
 
 	/**
@@ -88,13 +56,20 @@ public class ParkingRecordDto {
 	 * @return dto object converted
 	 */
 	public ParkingRecordDto entityToDto(ParkingRecord record) {
-		return new ParkingRecordDto(
-				new KeeperDto().entityToDto(record.getKeeperIn()).getId(), 
-				(record.getKeeperOut()==null)?null:new KeeperDto().entityToDto(record.getKeeperOut()).getId(), 
-				new VehicleDto().entityToDto(record.getVehicle()), 
-				record.getCheckIn(), record.getCheckOut(), 
-				record.getTotalDays(), record.getTotalHours(), record.getTotalCost(), 
-				record.getId(), record.getRegistrationActive(), record.getRegistrationDate());
+		ParkingRecordDto dto = new ParkingRecordDto();
+		dto.setKeeperIn(record.getKeeperIn().getId());
+		dto.setKeeperOut((record.getKeeperOut()==null)?null:record.getKeeperOut().getId());
+		dto.setVehicle(new VehicleDto().entityToDto(record.getVehicle()));
+		dto.setCheckIn(record.getCheckIn());
+		dto.setCheckOut(record.getCheckOut());
+		dto.setTotalDays(record.getTotalDays());
+		dto.setTotalHours(record.getTotalHours());
+		dto.setTotalCost(record.getTotalCost());
+		dto.setId(record.getId());
+		dto.setRegistrationActive(record.getRegistrationActive());
+		dto.setRegistrationDate(record.getRegistrationDate());
+
+		return dto;
 	}
 
 	/**

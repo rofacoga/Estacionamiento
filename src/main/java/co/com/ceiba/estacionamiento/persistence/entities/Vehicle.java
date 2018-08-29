@@ -42,33 +42,6 @@ public class Vehicle {
 	@Column(name = "REGISTRATION_DATE", nullable = false)
 	private Calendar registrationDate;
 
-	/**
-	 *Constructor without params
-	 */
-	public Vehicle() {
-		super();
-	}
-
-	/**
-	 * Constructor with all params
-	 * 
-	 * @param plate
-	 * @param cylinder
-	 * @param type
-	 * @param id
-	 * @param registrationActive
-	 * @param registrationDate
-	 */
-	public Vehicle(String plate, Integer cylinder, VehicleTypeEnum type, Long id, Boolean registrationActive,
-			Calendar registrationDate) {
-		super();
-		this.plate = plate;
-		this.cylinder = cylinder;
-		this.type = type;
-		this.id = id;
-		this.registrationActive = registrationActive;
-		this.registrationDate = registrationDate;
-	}
 
 	/**
 	 * @return the plate

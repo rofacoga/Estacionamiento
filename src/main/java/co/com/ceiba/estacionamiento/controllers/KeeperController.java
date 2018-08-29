@@ -28,7 +28,7 @@ public class KeeperController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/login")
 	public ResponseEntity<Object> login(@RequestBody KeeperDto keeper) throws AnExceptionHandler {
-		return new ResponseEntity<>(this.keeperService.login(keeper.getUsername(), keeper.getPassword()), HttpStatus.OK);
+		return new ResponseEntity<>(this.keeperService.login(keeper.getUsername(), keeper.getP4ssw0rd()), HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/checkIn")

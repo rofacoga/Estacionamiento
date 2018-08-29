@@ -48,6 +48,22 @@ public class VehicleServiceTest {
 
 	@Test
 	@Rollback
+	public void testSave2() throws AnExceptionHandler {
+		VehicleDto object = new VehicleDto();
+		object.setPlate("abc123");
+		object.setType(VehicleTypeEnum.MOTORCYCLE);
+		object.setCylinderGreaterThan500(false);
+		object=this.service.saveVehicle(object);
+
+		assertNotNull("Verify that object have an id", object.getId());
+		this.idObject = object.getId();
+
+		object=this.service.saveVehicle(null);
+		assertNull("Verify that object have an id", object.getId());
+	}
+
+	@Test
+	@Rollback
 	public void testSearchByPlate() throws AnExceptionHandler {
 		VehicleDto type = this.service.searchByPlate("abc123");
 		assertNull("Verify that object not have an id", type.getId());
@@ -98,7 +114,7 @@ public class VehicleServiceTest {
 	public void testValidationPlateDuplicated() {
 		try {
 			this.testSave();
-			this.testSave();
+			this.testSave2();
 		} catch (AnExceptionHandler e) {
 			assertEquals(Constants.MESSAGE_ERROR_CREATE_VEHICLE_PLATE_DUPLICATED, e.getMessage());
 		}

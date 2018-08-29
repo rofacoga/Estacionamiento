@@ -64,45 +64,6 @@ public class ParkingRecord {
 	private Calendar registrationDate;
 
 	/**
-	 * Constructor without params
-	 */
-	public ParkingRecord() {
-		super();
-	}
-
-	/**
-	 * Constructor with all params
-	 * 
-	 * @param keeperIn
-	 * @param keeperOut
-	 * @param vehicle
-	 * @param checkIn
-	 * @param checkOut
-	 * @param totalDays
-	 * @param totalHours
-	 * @param totalCost
-	 * @param id
-	 * @param registrationActive
-	 * @param registrationDate
-	 */
-	public ParkingRecord(Keeper keeperIn, Keeper keeperOut, Vehicle vehicle, Calendar checkIn, Calendar checkOut,
-			Integer totalDays, Integer totalHours, BigInteger totalCost, Long id, Boolean registrationActive,
-			Calendar registrationDate) {
-		super();
-		this.keeperIn = keeperIn;
-		this.keeperOut = keeperOut;
-		this.vehicle = vehicle;
-		this.checkIn = checkIn;
-		this.checkOut = checkOut;
-		this.totalDays = totalDays;
-		this.totalHours = totalHours;
-		this.totalCost = totalCost;
-		this.id = id;
-		this.registrationActive = registrationActive;
-		this.registrationDate = registrationDate;
-	}
-
-	/**
 	 * @return the keeperIn
 	 */
 	public Keeper getKeeperIn() {

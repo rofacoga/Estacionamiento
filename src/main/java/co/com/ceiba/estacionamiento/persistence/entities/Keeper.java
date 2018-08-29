@@ -27,7 +27,7 @@ public class Keeper {
 	private String firstName;
 
 	@Column(name = "LASTNAME", nullable = false)
-	private String secondName;
+	private String lastName;
 
 	@Column(name = "MOBILENUMBER", nullable = true)
 	private String mobileNumber;
@@ -38,8 +38,8 @@ public class Keeper {
 	@Column(name = "username", nullable = false)
 	private String username;
 
-	@Column(name = "PASSWORD", nullable = false)
-	private String password;
+	@Column(name = "P4SSW0RD", nullable = false)
+	private String p4ssw0rd;
 
 
 	@Id
@@ -67,35 +67,6 @@ public class Keeper {
 	public Keeper(Long id) {
 		super();
 		this.id=id;
-	}
-
-	/**
-	 * Constructor with all params
-	 * 
-	 * @param dni
-	 * @param firstName
-	 * @param secondName
-	 * @param mobileNumber
-	 * @param email
-	 * @param username
-	 * @param password
-	 * @param id
-	 * @param registrationActive
-	 * @param registrationDate
-	 */
-	public Keeper(String dni, String firstName, String secondName, String mobileNumber, String email, String username,
-			String password, Long id, Boolean registrationActive, Calendar registrationDate) {
-		super();
-		this.dni = dni;
-		this.firstName = firstName;
-		this.secondName = secondName;
-		this.mobileNumber = mobileNumber;
-		this.email = email;
-		this.username = username;
-		this.password = password;
-		this.id = id;
-		this.registrationActive = registrationActive;
-		this.registrationDate = registrationDate;
 	}
 
 	/**
@@ -127,17 +98,17 @@ public class Keeper {
 	}
 
 	/**
-	 * @return the secondName
+	 * @return the lastName
 	 */
-	public String getSecondName() {
-		return secondName;
+	public String getLastName() {
+		return lastName;
 	}
 
 	/**
-	 * @param secondName the secondName to set
+	 * @param lastName the secondName to set
 	 */
-	public void setSecondName(String secondName) {
-		this.secondName = secondName;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	/**
@@ -183,17 +154,17 @@ public class Keeper {
 	}
 
 	/**
-	 * @return the password
+	 * @return the p4ssw0rd
 	 */
-	public String getPassword() {
-		return password;
+	public String getP4ssw0rd() {
+		return p4ssw0rd;
 	}
 
 	/**
-	 * @param password the password to set
+	 * @param password the p4ssw0rd to set
 	 */
-	public void setPassword(String password) {
-		this.password = password;
+	public void setP4ssw0rd(String password) {
+		this.p4ssw0rd = password;
 	}
 
 	/**

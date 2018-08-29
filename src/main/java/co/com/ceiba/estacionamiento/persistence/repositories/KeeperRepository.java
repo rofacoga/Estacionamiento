@@ -24,6 +24,6 @@ public interface KeeperRepository extends CrudRepository<Keeper, Long> {
 	@Query("select k.id "
 			+ "from Keeper k "
 			+ "where (k.mobileNumber=:user or k.email=:user or k.username=:user) "
-			+ "and k.password=:pass")
+			+ "and k.p4ssw0rd=:pass")
 	public Long findIdByUserAndPass(@Param("user") String user, @Param("pass") String pass);
 }
