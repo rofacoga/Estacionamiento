@@ -71,6 +71,9 @@ public class KeeperServiceTest {
 		this.service.deleteKeeper(object);
 		int size = ((Collection<?>) this.service.getAllKeepers()).size();
 		assertEquals("Verify that list not have elements", 0, size);
+
+		KeeperDto objectNull = this.service.deleteKeeper(null);
+		assertNull(objectNull.getId());
 	}
 
 	@Test

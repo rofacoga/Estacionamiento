@@ -15,6 +15,7 @@ import co.com.ceiba.estacionamiento.persistence.entities.ParkingRecord;
 import co.com.ceiba.estacionamiento.persistence.repositories.ParkingRecordRepository;
 import co.com.ceiba.estacionamiento.service.dtos.ParkingRecordDto;
 import co.com.ceiba.estacionamiento.service.dtos.VehicleDto;
+import co.com.ceiba.estacionamiento.service.mappers.ParkingRecordMapperInterface;
 import co.com.ceiba.estacionamiento.service.services.ParkingRecordServiceInterface;
 import co.com.ceiba.estacionamiento.service.services.VehicleServiceInterface;
 import co.com.ceiba.estacionamiento.utilities.Constants;
@@ -37,11 +38,14 @@ import co.com.ceiba.estacionamiento.utilities.exceptions.ThePlateStartWithTheLet
 @Service
 @Transactional
 public class ParkingRecordService implements ParkingRecordServiceInterface {
-	@Autowired
-	private VehicleServiceInterface vehicleService;
 
 	@Autowired
 	private ParkingRecordRepository repository;
+	@Autowired
+	private ParkingRecordMapperInterface mapper;
+
+	@Autowired
+	private VehicleServiceInterface vehicleService;
 
 	@Override
 	public ParkingRecordDto saveCheckIn(ParkingRecordDto record) throws AnExceptionHandler {
@@ -64,9 +68,9 @@ public class ParkingRecordService implements ParkingRecordServiceInterface {
 			record.setRegistrationDate(Calendar.getInstance());
 		}
 
-		ParkingRecord entity = this.repository.save(record.dtoToEntity());
+		ParkingRecord entity = this.repository.save(this.mapper.dtoToEntity(record));
 
-		return record.entityToDto(entity);
+		return this.mapper.entityToDto(entity);
 	}
 
 	@Override
@@ -102,9 +106,9 @@ public class ParkingRecordService implements ParkingRecordServiceInterface {
 		record.setTotalDays(res[1].intValue());
 		record.setTotalHours(res[2].intValue());
 
-		ParkingRecord entity = this.repository.save(record.dtoToEntity());
+		ParkingRecord entity = this.repository.save(this.mapper.dtoToEntity(record));
 
-		return record.entityToDto(entity);
+		return this.mapper.entityToDto(entity);
 	}
 
 	@Override
@@ -116,7 +120,7 @@ public class ParkingRecordService implements ParkingRecordServiceInterface {
 		Optional<ParkingRecord> record = this.repository.findById(id);
 
 		if (record.isPresent()) {
-			return new ParkingRecordDto().entityToDto(record.get());
+			return this.mapper.entityToDto(record.get());
 		} else {
 			return new ParkingRecordDto();
 		}
@@ -128,7 +132,7 @@ public class ParkingRecordService implements ParkingRecordServiceInterface {
 				.findByRegistrationActiveAndVehiclePlateIgnoreCaseAndCheckOutIsNull(true, plate);
 
 		if (record.isPresent()) {
-			return new ParkingRecordDto().entityToDto(record.get());
+			return this.mapper.entityToDto(record.get());
 		} else {
 			return new ParkingRecordDto();
 		}
@@ -139,19 +143,18 @@ public class ParkingRecordService implements ParkingRecordServiceInterface {
 		if (plate == null || plate.trim().equals("")) {
 			return new ArrayList<>();
 		}
-		return new ParkingRecordDto().listEntitiesToDtos(
+		return this.mapper.listEntitiesToDtos(
 				this.repository.findByRegistrationActiveAndVehiclePlateStartingWithAndCheckOutIsNull(true, plate));
 	}
 
 	@Override
 	public Iterable<ParkingRecordDto> getAllParkedVehicles() {
-		return new ParkingRecordDto()
-				.listEntitiesToDtos(this.repository.findByRegistrationActiveAndCheckOutIsNull(true));
+		return this.mapper.listEntitiesToDtos(this.repository.findByRegistrationActiveAndCheckOutIsNull(true));
 	}
 
 	@Override
 	public Iterable<ParkingRecordDto> getAllRecords() {
-		return new ParkingRecordDto().listEntitiesToDtos(this.repository.findByRegistrationActive(true));
+		return this.mapper.listEntitiesToDtos(this.repository.findByRegistrationActive(true));
 	}
 
 	/**

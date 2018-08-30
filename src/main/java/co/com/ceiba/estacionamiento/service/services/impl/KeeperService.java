@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import co.com.ceiba.estacionamiento.persistence.entities.Keeper;
 import co.com.ceiba.estacionamiento.persistence.repositories.KeeperRepository;
 import co.com.ceiba.estacionamiento.service.dtos.KeeperDto;
+import co.com.ceiba.estacionamiento.service.mappers.KeeperMapperInterface;
 import co.com.ceiba.estacionamiento.service.services.KeeperServiceInterface;
 import co.com.ceiba.estacionamiento.utilities.Constants;
 import co.com.ceiba.estacionamiento.utilities.exceptions.AnExceptionHandler;
@@ -25,10 +26,12 @@ public class KeeperService implements KeeperServiceInterface {
 
 	@Autowired
 	private KeeperRepository repository;
+	@Autowired
+	private KeeperMapperInterface mapper;
 
 	@Override
 	public Iterable<KeeperDto> getAllKeepers() {
-		return new KeeperDto().listEntitiesToDtos(this.repository.findByRegistrationActive(true));
+		return this.mapper.listEntitiesToDtos(this.repository.findByRegistrationActive(true));
 	}
 
 	@Override
@@ -39,7 +42,7 @@ public class KeeperService implements KeeperServiceInterface {
 
 		Optional<Keeper> keeper = this.repository.findById(idKeeper);
 		if (keeper.isPresent()) {
-			return new KeeperDto().entityToDto(keeper.get());
+			return this.mapper.entityToDto(keeper.get());
 		}
 		return new KeeperDto();
 	}
@@ -55,18 +58,22 @@ public class KeeperService implements KeeperServiceInterface {
 			keeper.setRegistrationDate(Calendar.getInstance());
 		}
 
-		Keeper entity = this.repository.save(keeper.dtoToEntity());
+		Keeper entity = this.repository.save(this.mapper.dtoToEntity(keeper));
 
-		return keeper.entityToDto(entity);
+		return this.mapper.entityToDto(entity);
 	}
 
 	@Override
 	public KeeperDto deleteKeeper(KeeperDto keeper) {
+		if (keeper==null) {
+			return new KeeperDto();
+		}
+
 		keeper.setRegistrationActive(false);
 
-		Keeper entity = this.repository.save(keeper.dtoToEntity());
+		Keeper entity = this.repository.save(this.mapper.dtoToEntity(keeper));
 
-		return keeper.entityToDto(entity);
+		return this.mapper.entityToDto(entity);
 	}
 
 	@Override
@@ -82,9 +89,9 @@ public class KeeperService implements KeeperServiceInterface {
 
 		keeper.setRegistrationActive(false);
 
-		Keeper entity = this.repository.save(keeper.dtoToEntity());
+		Keeper entity = this.repository.save(this.mapper.dtoToEntity(keeper));
 
-		return keeper.entityToDto(entity);
+		return this.mapper.entityToDto(entity);
 	}
 
 	@Override

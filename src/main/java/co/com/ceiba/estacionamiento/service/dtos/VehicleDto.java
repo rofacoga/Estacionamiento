@@ -1,10 +1,7 @@
 package co.com.ceiba.estacionamiento.service.dtos;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
-import co.com.ceiba.estacionamiento.persistence.entities.Vehicle;
 import co.com.ceiba.estacionamiento.utilities.Constants;
 import co.com.ceiba.estacionamiento.utilities.VehicleTypeEnum;
 
@@ -29,55 +26,6 @@ public class VehicleDto {
 	public boolean isCylinderGreaterThan500() {
 		return (this.cylinder == null) ? this.cylinderGreaterThan500
 				: (this.cylinder >= Constants.CYLINDER_MAX_MOTOCYCLES);
-	}
-
-	/**
-	 * Method that convert this dto object in entity object
-	 * 
-	 * @return this object in entity form
-	 */
-	public Vehicle dtoToEntity() {
-		Vehicle entity = new Vehicle();
-		entity.setPlate(this.plate);
-		entity.setCylinder(this.cylinder);
-		entity.setType(this.type);
-		entity.setId(this.id);
-		entity.setRegistrationActive(this.registrationActive);
-		entity.setRegistrationDate(this.registrationDate);
-
-		return entity;
-	}
-
-	/**
-	 * Method that convert entity object in dto object
-	 * 
-	 * @param type, is entity object to covert
-	 * @return dto object converted
-	 */
-	public VehicleDto entityToDto(Vehicle vehicle) {
-		VehicleDto dto = new VehicleDto();
-		dto.setPlate(vehicle.getPlate());
-		dto.setCylinder(vehicle.getCylinder());
-		dto.setType(vehicle.getType());
-		dto.setId(vehicle.getId());
-		dto.setRegistrationActive(vehicle.getRegistrationActive());
-		dto.setRegistrationDate(vehicle.getRegistrationDate());
-
-		return dto;
-	}
-
-	/**
-	 * Method to convert list of entity object in list of dto object
-	 * 
-	 * @param lista, list of entity object to convert
-	 * @return the list of dtos objects converted
-	 */
-	public List<VehicleDto> listEntitiesToDtos(List<Vehicle> lista) {
-		List<VehicleDto> list = new ArrayList<>();
-		for (Vehicle v : lista) {
-			list.add(this.entityToDto(v));
-		}
-		return list;
 	}
 
 	/**

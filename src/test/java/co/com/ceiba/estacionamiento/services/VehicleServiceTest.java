@@ -50,7 +50,7 @@ public class VehicleServiceTest {
 	@Rollback
 	public void testSave2() throws AnExceptionHandler {
 		VehicleDto object = new VehicleDto();
-		object.setPlate("abc123");
+		object.setPlate("abc124");
 		object.setType(VehicleTypeEnum.MOTORCYCLE);
 		object.setCylinderGreaterThan500(false);
 		object=this.service.saveVehicle(object);
@@ -93,6 +93,9 @@ public class VehicleServiceTest {
 		this.service.deleteVehicle(type);
 		int size = ((Collection<?>) this.service.getAllVehicles()).size();
 		assertEquals("Verify that list not have elements", 0, size);
+
+		VehicleDto objectNull = this.service.deleteVehicle(null);
+		assertNull(objectNull.getId());
 	}
 
 	@Test

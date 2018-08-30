@@ -1,10 +1,6 @@
 package co.com.ceiba.estacionamiento.service.dtos;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-
-import co.com.ceiba.estacionamiento.persistence.entities.Keeper;
 
 /**
  * 
@@ -24,62 +20,45 @@ public class KeeperDto {
 	private Calendar registrationDate;
 
 
-	/**
-	 * Method that convert this dto object in entity object
-	 * 
-	 * @return this object in entity form
-	 */
-	public Keeper dtoToEntity() {
-		Keeper entity = new Keeper();
-		entity.setDni(this.dni);
-		entity.setFirstName(this.firstName);
-		entity.setLastName(this.lastName);
-		entity.setMobileNumber(this.mobileNumber);
-		entity.setEmail(this.email);
-		entity.setUsername(this.username);
-		entity.setP4ssw0rd(this.p4ssw0rd);
-		entity.setId(this.id);
-		entity.setRegistrationActive(this.registrationActive);
-		entity.setRegistrationDate(this.registrationDate);
-
-		return entity;
-	}
-
-	/**
-	 * Method that convert entity object in dto object
-	 * 
-	 * @param type, is entity object to covert
-	 * @return dto object converted
-	 */
-	public KeeperDto entityToDto(Keeper keeper) {
-		KeeperDto dto = new KeeperDto();
-		dto.setDni(keeper.getDni());
-		dto.setFirstName(keeper.getFirstName());
-		dto.setLastName(keeper.getLastName());
-		dto.setMobileNumber(keeper.getMobileNumber());
-		dto.setEmail(keeper.getEmail());
-		dto.setUsername(keeper.getUsername());
-		dto.setPassword(keeper.getP4ssw0rd());
-		dto.setId(keeper.getId());
-		dto.setRegistrationActive(keeper.getRegistrationActive());
-		dto.setRegistrationDate(keeper.getRegistrationDate());
-
-		return dto;
-	}
-
-	/**
-	 * Method to convert list of entity object in list of dto object
-	 * 
-	 * @param lista, list of entity object to convert
-	 * @return the list of dtos objects converted
-	 */
-	public List<KeeperDto> listEntitiesToDtos(List<Keeper> lista) {
-		List<KeeperDto> list = new ArrayList<>();
-		for (Keeper k : lista) {
-			list.add(this.entityToDto(k));
-		}
-		return list;
-	}
+//	public Keeper dtoToEntity() {
+//		Keeper entity = new Keeper();
+//		entity.setDni(this.dni);
+//		entity.setFirstName(this.firstName);
+//		entity.setLastName(this.lastName);
+//		entity.setMobileNumber(this.mobileNumber);
+//		entity.setEmail(this.email);
+//		entity.setUsername(this.username);
+//		entity.setP4ssw0rd(this.p4ssw0rd);
+//		entity.setId(this.id);
+//		entity.setRegistrationActive(this.registrationActive);
+//		entity.setRegistrationDate(this.registrationDate);
+//
+//		return entity;
+//	}
+//
+//	public KeeperDto entityToDto(Keeper keeper) {
+//		KeeperDto dto = new KeeperDto();
+//		dto.setDni(keeper.getDni());
+//		dto.setFirstName(keeper.getFirstName());
+//		dto.setLastName(keeper.getLastName());
+//		dto.setMobileNumber(keeper.getMobileNumber());
+//		dto.setEmail(keeper.getEmail());
+//		dto.setUsername(keeper.getUsername());
+//		dto.setPassword(keeper.getP4ssw0rd());
+//		dto.setId(keeper.getId());
+//		dto.setRegistrationActive(keeper.getRegistrationActive());
+//		dto.setRegistrationDate(keeper.getRegistrationDate());
+//
+//		return dto;
+//	}
+//
+//	public List<KeeperDto> listEntitiesToDtos(List<Keeper> lista) {
+//		List<KeeperDto> list = new ArrayList<>();
+//		for (Keeper k : lista) {
+//			list.add(this.entityToDto(k));
+//		}
+//		return list;
+//	}
 
 	/**
 	 * @return the dni

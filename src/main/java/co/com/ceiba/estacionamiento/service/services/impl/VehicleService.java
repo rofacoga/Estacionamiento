@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import co.com.ceiba.estacionamiento.persistence.entities.Vehicle;
 import co.com.ceiba.estacionamiento.persistence.repositories.VehicleRepository;
 import co.com.ceiba.estacionamiento.service.dtos.VehicleDto;
+import co.com.ceiba.estacionamiento.service.mappers.VehicleMapperInterface;
 import co.com.ceiba.estacionamiento.service.services.VehicleServiceInterface;
 import co.com.ceiba.estacionamiento.utilities.Constants;
 import co.com.ceiba.estacionamiento.utilities.VehicleTypeEnum;
@@ -27,10 +28,12 @@ public class VehicleService implements VehicleServiceInterface {
 
 	@Autowired
 	private VehicleRepository repository;
+	@Autowired
+	private VehicleMapperInterface mapper;
 
 	@Override
 	public Iterable<VehicleDto> getAllVehicles() {
-		return new VehicleDto().listEntitiesToDtos(this.repository.findByRegistrationActive(true));
+		return this.mapper.listEntitiesToDtos(this.repository.findByRegistrationActive(true));
 	}
 
 	@Override
@@ -41,7 +44,7 @@ public class VehicleService implements VehicleServiceInterface {
 
 		Optional<Vehicle> vehicle = this.repository.findById(id);
 		if (vehicle.isPresent()) {
-			return new VehicleDto().entityToDto(vehicle.get());
+			return this.mapper.entityToDto(vehicle.get());
 		} else {
 			return new VehicleDto();
 		}
@@ -69,18 +72,22 @@ public class VehicleService implements VehicleServiceInterface {
 			vehicle.setRegistrationDate(Calendar.getInstance());
 		}
 
-		Vehicle entity = this.repository.save(vehicle.dtoToEntity());
+		Vehicle entity = this.repository.save(this.mapper.dtoToEntity(vehicle));
 
-		return vehicle.entityToDto(entity);
+		return this.mapper.entityToDto(entity);
 	}
 
 	@Override
 	public VehicleDto deleteVehicle(VehicleDto vehicle) {
+		if (vehicle==null) {
+			return new VehicleDto();
+		}
+
 		vehicle.setRegistrationActive(false);
 
-		Vehicle entity = this.repository.save(vehicle.dtoToEntity());
+		Vehicle entity = this.repository.save(this.mapper.dtoToEntity(vehicle));
 
-		return vehicle.entityToDto(entity);
+		return this.mapper.entityToDto(entity);
 	}
 
 	@Override
@@ -88,7 +95,7 @@ public class VehicleService implements VehicleServiceInterface {
 		Optional<Vehicle> vehicle = this.repository.findByRegistrationActiveAndPlateIgnoreCase(true,
 				plate.toLowerCase().trim());
 		if (vehicle.isPresent()) {
-			return new VehicleDto().entityToDto(vehicle.get());
+			return this.mapper.entityToDto(vehicle.get());
 		} else {
 			return new VehicleDto();
 		}
@@ -96,7 +103,6 @@ public class VehicleService implements VehicleServiceInterface {
 
 	@Override
 	public List<VehicleDto> searchAllByPlate(String plate) {
-		return new VehicleDto()
-				.listEntitiesToDtos(this.repository.findByRegistrationActiveAndPlateStartingWith(true, plate));
+		return this.mapper.listEntitiesToDtos(this.repository.findByRegistrationActiveAndPlateStartingWith(true, plate));
 	}
 }

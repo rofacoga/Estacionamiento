@@ -20,14 +20,17 @@ import co.com.ceiba.estacionamiento.utilities.VehicleTypeEnum;
 @Table(name = "VEHICLES")
 public class Vehicle {
 
+	@Column(name = "VEHICLETYPE", nullable = false)
+	private VehicleTypeEnum type;
+
 	@Column(name = "PLATE", nullable = false)
 	private String plate;
 
 	@Column(name = "CYLINDER", nullable = true)
 	private Integer cylinder;
 
-	@Column(name = "VEHICLETYPE", nullable = false)
-	private VehicleTypeEnum type;
+	@Column(name = "CYLINDER_BIGGER500", nullable = true)
+	private Boolean cylinderGreaterThan500;
 
 
 	@Id
@@ -69,6 +72,20 @@ public class Vehicle {
 	 */
 	public void setCylinder(Integer cylinder) {
 		this.cylinder = cylinder;
+	}
+
+	/**
+	 * @return the cylinderGreaterThan500
+	 */
+	public Boolean getCylinderGreaterThan500() {
+		return cylinderGreaterThan500;
+	}
+
+	/**
+	 * @param cylinderGreaterThan500 the cylinderGreaterThan500 to set
+	 */
+	public void setCylinderGreaterThan500(Boolean cylinderGreaterThan500) {
+		this.cylinderGreaterThan500 = cylinderGreaterThan500;
 	}
 
 	/**
