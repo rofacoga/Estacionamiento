@@ -26,7 +26,7 @@ public interface VehicleRepository extends CrudRepository<Vehicle, Long> {
 	 * @param plate
 	 * @return
 	 */
-	public List<Vehicle> findByRegistrationActiveAndPlateStartingWith(Boolean isActive, String plate);
+	public List<Vehicle> findByRegistrationActiveAndPlateIgnoreCaseStartingWith(Boolean isActive, String plate);
 
 	/**
 	 * 

@@ -57,7 +57,7 @@ public class Vehicle {
 	 * @param plate the plate to set
 	 */
 	public void setPlate(String plate) {
-		this.plate = plate;
+		this.plate = plate.toUpperCase().trim();
 	}
 
 	/**

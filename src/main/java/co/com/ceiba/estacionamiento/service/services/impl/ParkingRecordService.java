@@ -144,7 +144,7 @@ public class ParkingRecordService implements ParkingRecordServiceInterface {
 			return new ArrayList<>();
 		}
 		return this.mapper.listEntitiesToDtos(
-				this.repository.findByRegistrationActiveAndVehiclePlateStartingWithAndCheckOutIsNull(true, plate));
+				this.repository.findByRegistrationActiveAndVehiclePlateIgnoreCaseStartingWithAndCheckOutIsNull(true, plate));
 	}
 
 	@Override

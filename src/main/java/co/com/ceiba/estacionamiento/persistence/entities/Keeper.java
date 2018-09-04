@@ -80,7 +80,7 @@ public class Keeper {
 	 * @param dni the dni to set
 	 */
 	public void setDni(String dni) {
-		this.dni = dni;
+		this.dni = dni.toUpperCase().trim();
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class Keeper {
 	 * @param firstName the firstName to set
 	 */
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		this.firstName = firstName.toUpperCase().trim();
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class Keeper {
 	 * @param lastName the secondName to set
 	 */
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.lastName = lastName.toUpperCase().trim();
 	}
 
 	/**
@@ -122,7 +122,7 @@ public class Keeper {
 	 * @param mobileNumber the mobileNumber to set
 	 */
 	public void setMobileNumber(String mobileNumber) {
-		this.mobileNumber = mobileNumber;
+		this.mobileNumber = mobileNumber.toUpperCase().trim();
 	}
 
 	/**
@@ -136,7 +136,7 @@ public class Keeper {
 	 * @param email the email to set
 	 */
 	public void setEmail(String email) {
-		this.email = email;
+		this.email = email.toLowerCase().trim();
 	}
 
 	/**
@@ -150,7 +150,7 @@ public class Keeper {
 	 * @param username the username to set
 	 */
 	public void setUsername(String username) {
-		this.username = username;
+		this.username = username.toUpperCase().trim();
 	}
 
 	/**

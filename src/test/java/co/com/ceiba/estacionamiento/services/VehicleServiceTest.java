@@ -37,12 +37,12 @@ public class VehicleServiceTest {
 		object.setPlate("abc123");
 		object.setType(VehicleTypeEnum.MOTORCYCLE);
 		object.setCylinder(600);
-		object=this.service.saveVehicle(object);
+		object = this.service.saveVehicle(object);
 
 		assertNotNull("Verify that object have an id", object.getId());
 		this.idObject = object.getId();
 
-		object=this.service.saveVehicle(null);
+		object = this.service.saveVehicle(null);
 		assertNull("Verify that object have an id", object.getId());
 	}
 
@@ -53,12 +53,12 @@ public class VehicleServiceTest {
 		object.setPlate("abc124");
 		object.setType(VehicleTypeEnum.MOTORCYCLE);
 		object.setCylinderGreaterThan500(false);
-		object=this.service.saveVehicle(object);
+		object = this.service.saveVehicle(object);
 
 		assertNotNull("Verify that object have an id", object.getId());
 		this.idObject = object.getId();
 
-		object=this.service.saveVehicle(null);
+		object = this.service.saveVehicle(null);
 		assertNull("Verify that object have an id", object.getId());
 	}
 
@@ -132,7 +132,6 @@ public class VehicleServiceTest {
 		this.testSave();
 		size = ((Collection<?>) this.service.searchAllByPlate("a")).size();
 		assertTrue("Verify that the list has some element", size > 0);
-		
 	}
 
 }

@@ -35,7 +35,7 @@ public interface ParkingRecordRepository extends CrudRepository<ParkingRecord, L
 	 * @param plate
 	 * @return
 	 */
-	public List<ParkingRecord> findByRegistrationActiveAndVehiclePlateStartingWithAndCheckOutIsNull(Boolean isActive, String plate);
+	public List<ParkingRecord> findByRegistrationActiveAndVehiclePlateIgnoreCaseStartingWithAndCheckOutIsNull(Boolean isActive, String plate);
 
 	/**
 	 * 

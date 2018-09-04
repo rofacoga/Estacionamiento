@@ -103,6 +103,6 @@ public class VehicleService implements VehicleServiceInterface {
 
 	@Override
 	public List<VehicleDto> searchAllByPlate(String plate) {
-		return this.mapper.listEntitiesToDtos(this.repository.findByRegistrationActiveAndPlateStartingWith(true, plate));
+		return this.mapper.listEntitiesToDtos(this.repository.findByRegistrationActiveAndPlateIgnoreCaseStartingWith(true, plate));
 	}
 }
