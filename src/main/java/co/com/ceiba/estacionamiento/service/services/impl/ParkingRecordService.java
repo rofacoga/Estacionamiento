@@ -143,8 +143,8 @@ public class ParkingRecordService implements ParkingRecordServiceInterface {
 		if (plate == null || plate.trim().equals("")) {
 			return new ArrayList<>();
 		}
-		return this.mapper.listEntitiesToDtos(
-				this.repository.findByRegistrationActiveAndVehiclePlateIgnoreCaseStartingWithAndCheckOutIsNull(true, plate));
+		return this.mapper.listEntitiesToDtos(this.repository
+				.findByRegistrationActiveAndVehiclePlateIgnoreCaseStartingWithAndCheckOutIsNull(true, plate));
 	}
 
 	@Override
@@ -171,11 +171,11 @@ public class ParkingRecordService implements ParkingRecordServiceInterface {
 			throws DayToEvaluateInvalidException, ThePlateStartWithTheLetterException,
 			ThePlateIsAlreadyRegisteredException, ParkingExceedsTheAllowedCapacityException {
 
-		if (!(Validations.doesThePlateStartWithTheLetter('a', record.getVehicle().getPlate())
-				&& (Validations.isTheCalendarDayTheDayOfTheWeek(record.getCheckIn(), Calendar.SUNDAY)
-						|| Validations.isTheCalendarDayTheDayOfTheWeek(record.getCheckIn(), Calendar.MONDAY)))) {
-
-			throw new ThePlateStartWithTheLetterException(Constants.MESSAGE_ERROR_CHECK_IN_PLATE_INVALID);
+		if (Validations.doesThePlateStartWithTheLetter('a', record.getVehicle().getPlate())) {
+			if (!Validations.isTheCalendarDayTheDayOfTheWeek(record.getCheckIn(), Calendar.SUNDAY)
+					&& !Validations.isTheCalendarDayTheDayOfTheWeek(record.getCheckIn(), Calendar.MONDAY)) {
+				throw new ThePlateStartWithTheLetterException(Constants.MESSAGE_ERROR_CHECK_IN_PLATE_INVALID);
+			}
 		}
 
 		int amountAtTheTime = (int) this.repository.countByRegistrationActiveAndVehicleTypeAndCheckOutIsNull(true,
