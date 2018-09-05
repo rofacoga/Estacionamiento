@@ -14,7 +14,6 @@ import co.com.ceiba.estacionamiento.service.dtos.VehicleDto;
 import co.com.ceiba.estacionamiento.service.mappers.VehicleMapperInterface;
 import co.com.ceiba.estacionamiento.service.services.VehicleServiceInterface;
 import co.com.ceiba.estacionamiento.utilities.Constants;
-import co.com.ceiba.estacionamiento.utilities.VehicleTypeEnum;
 import co.com.ceiba.estacionamiento.utilities.exceptions.AnExceptionHandler;
 import co.com.ceiba.estacionamiento.utilities.exceptions.CreateVehicleException;
 
@@ -63,10 +62,8 @@ public class VehicleService implements VehicleServiceInterface {
 				throw new CreateVehicleException(Constants.MESSAGE_ERROR_CREATE_VEHICLE_PLATE_DUPLICATED);
 			}
 
-			if (vehicle.getType() == VehicleTypeEnum.MOTORCYCLE) {
-				vehicle.setCylinderGreaterThan500((vehicle.getCylinder() == null) ? vehicle.getCylinderGreaterThan500()
-						: (vehicle.getCylinder() > Constants.CYLINDER_MAX_MOTOCYCLES));
-			}
+			vehicle.setCylinderGreaterThan500((vehicle.getCylinder() == null) ? vehicle.getCylinderGreaterThan500()
+					: (vehicle.getCylinder() > Constants.CYLINDER_MAX_MOTOCYCLES));
 
 			vehicle.setRegistrationActive(true);
 			vehicle.setRegistrationDate(Calendar.getInstance());
@@ -79,7 +76,7 @@ public class VehicleService implements VehicleServiceInterface {
 
 	@Override
 	public VehicleDto deleteVehicle(VehicleDto vehicle) {
-		if (vehicle==null) {
+		if (vehicle == null) {
 			return new VehicleDto();
 		}
 
@@ -103,6 +100,7 @@ public class VehicleService implements VehicleServiceInterface {
 
 	@Override
 	public List<VehicleDto> searchAllByPlate(String plate) {
-		return this.mapper.listEntitiesToDtos(this.repository.findByRegistrationActiveAndPlateIgnoreCaseStartingWith(true, plate));
+		return this.mapper.listEntitiesToDtos(
+				this.repository.findByRegistrationActiveAndPlateIgnoreCaseStartingWith(true, plate));
 	}
 }
